@@ -1,0 +1,19 @@
+
+.rbl-category-view {
+    margin: 15px 5%;
+    background: #fefecd;
+    box-shadow: 0px 0px 3px 3px rgba(220,220,200,0.4);
+}
+
+.rbl-header {
+    background: #5f5f5f;
+    color: #f4f4f4;
+    display: flex;
+    flex-direction: row;
+    padding: 4px;
+}
+
+.rbl-title {
+    font-size: 120%;
+    padding: 10px 30px 10px 10px;
+}

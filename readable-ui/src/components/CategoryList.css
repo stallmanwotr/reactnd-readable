@@ -1,0 +1,19 @@
+
+.rbl-categories {
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.rbl-category {
+    padding: 2px 6px;
+    display: flex;
+}
+
+.rbl-category a {
+    color: #f4f4f4;
+    text-decoration: none;
+}
+
