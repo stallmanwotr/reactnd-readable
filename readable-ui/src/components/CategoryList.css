@@ -1,5 +1,5 @@
 
-.rbl-categories {
+.rd-categories {
     margin: 0;
     padding: 0;
     display: inline-flex;
@@ -7,12 +7,12 @@
     align-items: center;
 }
 
-.rbl-category {
+.rd-category {
     padding: 2px 6px;
     display: flex;
 }
 
-.rbl-category a {
+.rd-category a {
     color: #f4f4f4;
     text-decoration: none;
 }

@@ -1,5 +1,5 @@
 
-.rbl-post-item {
+.rd-post-item {
     padding: 6px 0;
     display: flex;
     flex-direction: row;
@@ -7,18 +7,18 @@
 }
 
 
-.rbl-post-buttons {
+.rd-post-buttons {
     display: inline-flex;
     flex-direction: column;
     padding: 0 14px 0 8px;
 }
 
-.rbl-post-2nd-line {
+.rd-post-2nd-line {
     display: flex;
     flex-direction: row;
     font-size: 0.8em;
 }
 
-.rbl-post-2nd-line div {
+.rd-post-2nd-line div {
     padding: 0 22px 0 0;
 }

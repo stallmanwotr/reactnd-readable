@@ -4,7 +4,7 @@ import * as ReadableAPI from '../api/ReadableAPI';
 import './CategoryList.css';
 
 /**
- * Renders a list of all categories.
+ * A list of all categories, that link to the category pages.
  *
  * Example JSON:
  * {
@@ -38,12 +38,12 @@ class CategoryList extends Component {
         const { categories } = this.state;
 
         return (
-            <div className="rbl-categories">
-                <div key={'all'} className="rbl-category">
+            <div className="rd-categories">
+                <div key={'all'} className="rd-category">
                     <Link to={'/'}>all</Link>
                 </div>
                 { categories.map((category) => (
-                    <div key={category.name} className="rbl-category">
+                    <div key={category.name} className="rd-category">
                         <Link to={'/' + category.path}>{category.name}</Link>
                     </div>
                 ))}

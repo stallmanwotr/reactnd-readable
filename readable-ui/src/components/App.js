@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+
+import CategoryPage from './CategoryPage';
+import DefaultPage from './DefaultPage';
+import PostPage from './PostPage';
+import ReadableHeader from './ReadableHeader';
 import * as ReadableAPI from '../api/ReadableAPI';
-import DefaultView from './DefaultView';
-import CategoryView from './CategoryView';
 
 class App extends Component {
 
@@ -28,11 +31,15 @@ class App extends Component {
     render() {
         return (
             <div>
+                <ReadableHeader />
                 <Route exact path="/" render={() => (
-                    <DefaultView />
+                    <DefaultPage />
                 )}/>
-                <Route path="/:category" render={({ match }) => (
-                    <CategoryView category={match.params.category} />
+                <Route exact path="/:category" render={({ match }) => (
+                    <CategoryPage category={match.params.category} />
+                )}/>
+                <Route exact path="/:category/:postId" render={({ match }) => (
+                    <PostPage postId={match.params.postId} />
                 )}/>
             </div>
         );

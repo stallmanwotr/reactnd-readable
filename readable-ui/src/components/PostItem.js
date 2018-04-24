@@ -29,16 +29,16 @@ class PostItem extends Component {
         const postTo = `/${post.category}/${post.id}`;
 
         return (
-            <div className="rbl-post-item">
-                <div className="rbl-post-buttons">
+            <div className="rd-post-item">
+                <div className="rd-post-buttons">
                     <Icon icon={chevronUp} size={16} />
                     <Icon icon={chevronDown} size={16} />
                 </div>
-                <div className="rbl-post-summary">
-                    <div className="rbl-post-title">
+                <div className="rd-post-summary">
+                    <div className="rd-post-title">
                         <Link to={postTo}>{post.title}</Link>
                     </div>
-                    <div className="rbl-post-2nd-line">
+                    <div className="rd-post-2nd-line">
                         <div>{post.voteScore} points</div>
                         <div>-- {post.category} --</div>
                         <div>{post.commentCount} comments</div>

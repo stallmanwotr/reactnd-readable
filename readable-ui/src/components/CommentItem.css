@@ -1,0 +1,16 @@
+
+.rd-comment-item {
+    display: flex;
+    flex-direction: row;
+    padding: 6px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.rd-comment-item:last-child {
+    border-bottom: 0;
+}
+
+.rd-comment-meta {
+    font-size: 80%;
+}
+

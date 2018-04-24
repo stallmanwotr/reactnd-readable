@@ -1,0 +1,24 @@
+
+.rd-post-page {
+    background: #ffffff;
+    box-shadow: 0px 0px 3px 3px rgba(220,220,220,0.4);
+    margin: 15px 5%;
+    padding: 4px 10px;
+}
+
+.rd-post-header-line1 {
+    font-size: 120%;
+}
+
+.rd-post-header-line2 {
+    font-size: 80%;
+}
+
+.rd-post-body {
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    margin: 5px 40px 15px;
+    padding: 15px;
+}
+
+
