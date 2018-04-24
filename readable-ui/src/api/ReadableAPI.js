@@ -2,6 +2,16 @@ import { doGet, doPost, doPut, doDelete } from './RestUtil';
 
 /**
  * Get all of the categories available for the app.
+ *
+ * Example JSON:
+ * {
+ *    "categories": [{
+ *        "name": "react",
+ *        "path":"react"
+ *    },
+ *    ...
+ *    ]
+ * }
  */
 export const getCategories = () => {
     return doGet('/categories');

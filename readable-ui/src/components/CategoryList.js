@@ -1,42 +1,35 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import * as ReadableAPI from '../api/ReadableAPI';
+import { fetchCategories } from '../actions/actions';
 import './CategoryList.css';
 
+// Map the app state to component props.
+const mapStateToProps = (state) => {
+    const { categories } = state.categoryReducer;
+    return {
+        categories
+    };
+};
+
 /**
- * A list of all categories, that link to the category pages.
- *
- * Example JSON:
- * {
- *    "categories": [{
- *        "name": "react",
- *        "path":"react"
- *    },
- *    ...
- *    ]
- * }
+ * Lists all categories, that link to the category pages.
  */
 class CategoryList extends Component {
 
-    state = {
-        categories: []
-    }
-
-    _fetchCategories() {
-        ReadableAPI.getCategories().then((response) => {
-            const categories = (response && response.categories) ? response.categories : [];
-            console.info(`Got ${categories.length} categories.`);
-            this.setState({ categories });
-        });
-    }
-
     componentDidMount() {
-        this._fetchCategories();
+        const { dispatch } = this.props;
+
+        // fetch from the backend and update the app state.
+        dispatch(fetchCategories());
     }
 
     render() {
-        const { categories } = this.state;
+        const { categories } = this.props;
 
+        if (!Array.isArray(categories)) {
+            return (null);
+        }
         return (
             <div className="rd-categories">
                 <div key={'all'} className="rd-category">
@@ -52,4 +45,4 @@ class CategoryList extends Component {
     };
 }
 
-export default CategoryList;
+export default connect(mapStateToProps)(CategoryList);
