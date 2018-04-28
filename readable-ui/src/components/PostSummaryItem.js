@@ -1,35 +1,28 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Icon from 'react-icons-kit';
 import { chevronDown } from 'react-icons-kit/fa/chevronDown';
 import { chevronUp } from 'react-icons-kit/fa/chevronUp';
 import { Link } from 'react-router-dom';
-import './PostItem.css';
+import './PostSummaryItem.css';
 
 /**
- * A short summary of a post.
+ * A short summary of a user post.
  *   It renders the title, author and buttons to up/down vote.
- *
- * Example Post:
- * {
- *     "id":"8xf0y6ziyjabvozdd253nd",
- *     "timestamp":1467166872634,
- *     "title":"Udacity is the best place to learn React",
- *     "body":"Everyone says so after all.",
- *     "author":"thingtwo",
- *     "category":"react",
- *     "voteScore":6,
- *     "deleted":false,
- *     "commentCount":2
- * }
  */
-class PostItem extends Component {
+class PostSummaryItem extends Component {
+
+    static propTypes = {
+        /** The user post to be shown. */
+        post: PropTypes.object.isRequired
+    }
 
     render() {
         const { post } = this.props;
         const postTo = `/${post.category}/${post.id}`;
 
         return (
-            <div className="rd-post-item">
+            <div className="rd-post-summary-item">
                 <div className="rd-post-buttons">
                     <Icon icon={chevronUp} size={16} />
                     <Icon icon={chevronDown} size={16} />
@@ -50,6 +43,6 @@ class PostItem extends Component {
     };
 }
 
-export default PostItem;
+export default PostSummaryItem;
 
 

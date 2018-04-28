@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import {
-    RECEIVE_CATEGORIES
+    RECEIVE_CATEGORIES,
+    RECEIVE_CATEGORY_POSTS,
+    RECEIVE_POSTS
 } from '../actions/actions';
 
 const initialState = {
@@ -9,17 +11,19 @@ const initialState = {
 
 // reducers
 
-function food(state = {}, action) {
-    console.info('REDUCER: food');
+function allReducer(state = initialState, action) {
+    console.info('REDUCER: allReducer ' + action.type);
     switch (action.type) {
-    /*
-    case ADD_RECIPE :
-        const { recipe } = action;
+    case RECEIVE_CATEGORIES:
         return {
             ...state,
-            [recipe.label]: recipe,
-        }
-    */
+            categories: action.categories
+        };
+    case RECEIVE_POSTS:
+        return {
+            ...state,
+            posts: action.posts
+        };
     default:
         return state;
     }
@@ -28,11 +32,15 @@ function food(state = {}, action) {
 function categoryReducer(state = initialState, action) {
     console.info('REDUCER: categoryReducer ' + action.type);
     switch (action.type) {
-    case RECEIVE_CATEGORIES:
-        console.info('Updating state: ' + JSON.stringify(action.categories));
+    case RECEIVE_CATEGORY_POSTS:
+        const { category, posts } = action;
+        console.log('*** ' + category + ' --> ' + JSON.stringify(posts));
         return {
             ...state,
-            categories: action.categories
+            [category]: {
+                ...state[category],
+                posts
+            }
         };
     default:
         return state;
@@ -40,6 +48,6 @@ function categoryReducer(state = initialState, action) {
 }
 
 export default combineReducers({
-    food,
-    categoryReducer,
+    all: allReducer,
+    categories: categoryReducer
 });

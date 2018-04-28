@@ -1,8 +1,5 @@
 
-.rbl-post-list {
-}
-
-.rbl-posts {
+.rbl-post-summary-list {
     margin: 0;
     padding: 0;
     list-style-type: none;
@@ -11,13 +8,11 @@
     background: #ececec;
 }
 
-.rbl-post:first-child {
-    margin: 0;
+.rd-post-summary-none {
+    background: white;
+    border-top: 2px solid #e0e0e0;
+    padding: 10px 10px;
+    font-style: italic;
 }
 
-.rbl-post {
-    margin: 2px 0 0 0;
-    background: white;
-    display: flex;
-    padding: 2px 10px;
-}
+

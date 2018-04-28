@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { fetchCategories } from '../actions/actions';
 import './CategoryList.css';
 
-// Map the app state to component props.
+// Redux: Map the app state to component props.
 const mapStateToProps = (state) => {
-    const { categories } = state.categoryReducer;
+    const { categories } = state.all;
     return {
         categories
     };
@@ -20,7 +20,7 @@ class CategoryList extends Component {
     componentDidMount() {
         const { dispatch } = this.props;
 
-        // fetch from the backend and update the app state.
+        // fetch and update the app state.
         dispatch(fetchCategories());
     }
 
