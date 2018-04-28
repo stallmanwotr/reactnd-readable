@@ -2,11 +2,14 @@ import { combineReducers } from 'redux';
 import {
     RECEIVE_CATEGORIES,
     RECEIVE_CATEGORY_POSTS,
+    RECEIVE_POST_AND_COMMENTS,
     RECEIVE_POSTS
 } from '../actions/actions';
 
 const initialState = {
-    categories: []
+    all: {},
+    categories: [],
+    posts: []
 };
 
 // reducers
@@ -34,7 +37,6 @@ function categoryReducer(state = initialState, action) {
     switch (action.type) {
     case RECEIVE_CATEGORY_POSTS:
         const { category, posts } = action;
-        console.log('*** ' + category + ' --> ' + JSON.stringify(posts));
         return {
             ...state,
             [category]: {
@@ -47,7 +49,26 @@ function categoryReducer(state = initialState, action) {
     }
 }
 
+function postReducer(state = initialState, action) {
+    console.info('REDUCER: postReducer ' + action.type);
+    switch (action.type) {
+    case RECEIVE_POST_AND_COMMENTS:
+        const { post, comments } = action;
+        return {
+            ...state,
+            [post.id]: {
+                ...state[post.id],
+                post,
+                comments
+            }
+        };
+    default:
+        return state;
+    }
+}
+
 export default combineReducers({
     all: allReducer,
-    categories: categoryReducer
+    categories: categoryReducer,
+    posts: postReducer
 });

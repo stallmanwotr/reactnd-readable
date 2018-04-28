@@ -48,6 +48,19 @@ export const getPosts = () => {
 
 /**
  * Get the details of a single post.
+ *
+ * Example JSON:
+ * {  
+ *    "id":"8xf0y6ziyjabvozdd253nd",
+ *    "timestamp":1467166872634,
+ *    "title":"Udacity is the best place to learn React",
+ *    "body":"Everyone says so after all.",
+ *    "author":"thingtwo",
+ *    "category":"react",
+ *    "voteScore":6,
+ *    "deleted":false,
+ *    "commentCount":2
+ * }
  */
 export const getPost = (postId) => {
     return doGet(`/posts/${postId}`);
@@ -55,6 +68,20 @@ export const getPost = (postId) => {
 
 /**
  * Get all the comments for a single post.
+ *
+ * Example JSON:
+ * [{  
+ *     "id":"894tuq4ut84ut8v4t8wun89g",
+ *     "parentId":"8xf0y6ziyjabvozdd253nd",
+ *     "timestamp":1468166872634,
+ *     "body":"Hi there! I am a COMMENT.",
+ *     "author":"thingtwo",
+ *     "voteScore":6,
+ *     "deleted":false,
+ *     "parentDeleted":false
+ * },
+ * ...
+ * ]
  */
 export const getPostComments = (postId) => {
     return doGet(`/posts/${postId}/comments`);

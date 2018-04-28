@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../actions/actions';
-import PostSummaryList from './PostSummaryList';
+import { fetchPosts } from '../../actions/actions';
+import PostSummaryList from '../PostSummaryList';
 import './DefaultPage.css';
 
 // Map the app state to component props.

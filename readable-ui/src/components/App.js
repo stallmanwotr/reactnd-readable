@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
-import CategoryPage from './CategoryPage';
-import DefaultPage from './DefaultPage';
-import PostPage from './PostPage';
+import CategoryPage from './pages/CategoryPage';
+import DefaultPage from './pages/DefaultPage';
+import PostPage from './pages/PostPage';
 import ReadableHeader from './ReadableHeader';
 import * as ReadableAPI from '../api/ReadableAPI';
 

@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchCategoryPosts } from '../actions/actions';
-import PostSummaryList from './PostSummaryList';
+import { fetchCategoryPosts } from '../../actions/actions';
+import PostSummaryList from '../PostSummaryList';
 import './CategoryPage.css';
 
 // Map the app state to component props.
 const mapStateToProps = (state, ownProps) => {
     const { category } = ownProps;
-
     const posts = (state.categories && state.categories[category])
         ? state.categories[category].posts : [];
 
