@@ -15,6 +15,7 @@ class PostSummaryList extends Component {
 
     render() {
         const { posts } = this.props;
+        console.info('Render post summaries ****');
 
         return (
             <div className="rbl-post-summary-list">

@@ -1,10 +1,27 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import Icon from 'react-icons-kit';
-import { chevronDown } from 'react-icons-kit/fa/chevronDown';
-import { chevronUp } from 'react-icons-kit/fa/chevronUp';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { voteOnPost, UP_VOTE, DOWN_VOTE } from '../actions/actions';
+import UpDownButtons from './UpDownButtons';
 import './PostSummaryItem.css';
+
+// Map the app state to component props.
+const mapStateToProps = (state, ownProps) => {
+    const { post } = ownProps;
+
+    let isUpVoted = false;
+    let isDownVoted = false;
+    if (state.posts && state.posts[post.id]) {
+        const postState = state.posts[post.id];
+        console.info('STATE: ' + JSON.stringify(postState));
+        isUpVoted = (postState.isUpVoted === true);
+        isDownVoted = (postState.isDownVoted === true);
+    }
+
+    console.log('mapStateToProps: ' + post.id + ' ' + isUpVoted + ' ' + isDownVoted);
+    return { isUpVoted, isDownVoted };
+};
 
 /**
  * A short summary of a user post.
@@ -17,16 +34,32 @@ class PostSummaryItem extends Component {
         post: PropTypes.object.isRequired
     }
 
+    _onVoteUp() {
+        const { post, dispatch } = this.props;
+        console.info('Up vote post: ' + post.id);
+        dispatch(voteOnPost(post.id, UP_VOTE));
+    }
+
+    _onVoteDown() {
+        const { post, dispatch } = this.props;
+        console.info('Down vote post: ' + post.id);
+        dispatch(voteOnPost(post.id, DOWN_VOTE));
+    }
+
     render() {
-        const { post } = this.props;
+        const { post, isUpVoted, isDownVoted } = this.props;
+        console.info('Render post summary: ' + post.id);
+        console.info(`isUpVoted=${isUpVoted} ****`);
+        console.info(`isDownVoted=${isDownVoted} ****`);
         const postTo = `/${post.category}/${post.id}`;
 
         return (
             <div className="rd-post-summary-item">
-                <div className="rd-post-buttons">
-                    <Icon icon={chevronUp} size={16} />
-                    <Icon icon={chevronDown} size={16} />
-                </div>
+                <UpDownButtons
+                    isUpVoted={isUpVoted}
+                    isDownVoted={isDownVoted}
+                    onClickUp={this._onVoteUp.bind(this)}
+                    onClickDown={this._onVoteDown.bind(this)}/>
                 <div className="rd-post-summary">
                     <div className="rd-post-title">
                         <Link to={postTo}>{post.title}</Link>
@@ -43,6 +76,4 @@ class PostSummaryItem extends Component {
     };
 }
 
-export default PostSummaryItem;
-
-
+export default connect(mapStateToProps)(PostSummaryItem);

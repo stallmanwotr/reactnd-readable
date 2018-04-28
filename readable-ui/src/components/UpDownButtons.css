@@ -4,3 +4,15 @@
     flex-direction: column;
     padding: 0 14px 0 8px;
 }
+
+.rd-button {
+    width: '16px';
+    height: '16px';
+    cursor: pointer;
+}
+
+.rd-button-used {
+    color: #f77c18;
+}
+
+

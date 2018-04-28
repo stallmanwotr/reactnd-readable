@@ -3,7 +3,9 @@ import {
     RECEIVE_CATEGORIES,
     RECEIVE_CATEGORY_POSTS,
     RECEIVE_POST_AND_COMMENTS,
-    RECEIVE_POSTS
+    RECEIVE_POSTS,
+    UP_VOTE,
+    VOTE_ON_POST
 } from '../actions/actions';
 
 const initialState = {
@@ -60,6 +62,16 @@ function postReducer(state = initialState, action) {
                 ...state[post.id],
                 post,
                 comments
+            }
+        };
+    case VOTE_ON_POST:
+        const { postId, option } = action;
+        const field = (option === UP_VOTE) ? 'isUpVoted' : 'isDownVoted';
+        return {
+            ...state,
+            [postId]: {
+                ...state[postId],
+                [field]: true
             }
         };
     default:

@@ -38,7 +38,7 @@ class PostPage extends Component {
     componentDidMount() {
         const { postId, dispatch } = this.props;
 
-        // initial: fetch and update the app state.
+        // fetch and update the app state.
         if (postId) {
             console.info('Fetching post: ' + postId);
             dispatch(fetchPostAndComments(postId));
