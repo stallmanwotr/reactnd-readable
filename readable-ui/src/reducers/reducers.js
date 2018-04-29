@@ -8,16 +8,23 @@ import {
     VOTE_ON_POST
 } from '../actions/actions';
 
-const initialState = {
-    all: {},
-    categories: [],
-    posts: []
-};
+/**
+ * Reduces an array of objects, to a single object/map indexed by 'id' value.
+ */
+function _reduceToObjectById(values) {
+    return values.reduce((obj, item) => {
+        obj[item.id] = item;
+        return obj;
+    }, {});
+}
 
-// reducers
+const initialAllState = { categories: [], posts: {} };
 
-function allReducer(state = initialState, action) {
-    console.info('REDUCER: allReducer ' + action.type);
+/**
+ * The 'allReducer' deals with full sets of data (categories and posts), and is
+ * typically used for the front page.
+ */
+function allReducer(state = initialAllState, action) {
     switch (action.type) {
     case RECEIVE_CATEGORIES:
         return {
@@ -27,23 +34,24 @@ function allReducer(state = initialState, action) {
     case RECEIVE_POSTS:
         return {
             ...state,
-            posts: action.posts
+            // convert the array to an object/map indexed by postId:
+            posts: _reduceToObjectById(action.posts)
         };
-    default:
-        return state;
-    }
-}
-
-function categoryReducer(state = initialState, action) {
-    console.info('REDUCER: categoryReducer ' + action.type);
-    switch (action.type) {
-    case RECEIVE_CATEGORY_POSTS:
-        const { category, posts } = action;
+    case VOTE_ON_POST:
+        const { postId, option } = action;
+        if (!state.posts || !state.posts[postId]) {
+            return state;
+        }
+        const voteDelta = (option === UP_VOTE) ? 1 : -1;
+        const newScore = state.posts[postId].voteScore + voteDelta;
         return {
             ...state,
-            [category]: {
-                ...state[category],
-                posts
+            posts: {
+                ...state.posts,
+                [postId]: {
+                    ...state.posts[postId],
+                    voteScore: newScore
+                }
             }
         };
     default:
@@ -51,8 +59,52 @@ function categoryReducer(state = initialState, action) {
     }
 }
 
-function postReducer(state = initialState, action) {
-    console.info('REDUCER: postReducer ' + action.type);
+/**
+ * The 'categoryReducer' is an array of per-category information. Primarily it
+ * sets the user posts for each category.
+ */
+function categoryReducer(state = {}, action) {
+    const { category } = action;
+
+    switch (action.type) {
+    case RECEIVE_CATEGORY_POSTS:
+        const { posts } = action;
+        return {
+            ...state,
+            [category]: {
+                ...state[category],
+                posts: _reduceToObjectById(posts)
+            }
+        };
+    case VOTE_ON_POST:
+        const { postId, option } = action;
+        if (!state[category] || !state[category].posts[postId]) {
+            return state;
+        }
+        const voteDelta = (option === UP_VOTE) ? 1 : -1;
+        const newScore = state[category].posts[postId].voteScore + voteDelta;
+        return {
+            ...state,
+            [category]: {
+                ...state[category],
+                posts: {
+                    ...state[category].posts,
+                    [postId]: {
+                        ...state[category].posts[postId],
+                        voteScore: newScore
+                    }
+                }
+            }
+        };
+    default:
+        return state;
+    }
+}
+
+/**
+ * The 'postReducer' handles individual posts and their associated comments.
+ */
+function postReducer(state = {}, action) {
     switch (action.type) {
     case RECEIVE_POST_AND_COMMENTS:
         const { post, comments } = action;
@@ -66,12 +118,19 @@ function postReducer(state = initialState, action) {
         };
     case VOTE_ON_POST:
         const { postId, option } = action;
-        const field = (option === UP_VOTE) ? 'isUpVoted' : 'isDownVoted';
+        if (!state[postId] || !state[postId].post) {
+            return state;
+        }
+        const voteDelta = (option === UP_VOTE) ? 1 : -1;
+        const newScore = state[postId].post.voteScore + voteDelta;
         return {
             ...state,
             [postId]: {
                 ...state[postId],
-                [field]: true
+                post: {
+                    ...state[postId].post,
+                    voteScore: newScore
+                }
             }
         };
     default:

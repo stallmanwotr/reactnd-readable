@@ -9,20 +9,21 @@ import './PostSummaryList.css';
 class PostSummaryList extends Component {
 
     static propTypes = {
-        /** The user posts to be shown. */
-        posts: PropTypes.array.isRequired
+        /** The user posts to be shown, indexed by post id. */
+        posts: PropTypes.object.isRequired
     }
 
     render() {
         const { posts } = this.props;
-        console.info('Render post summaries ****');
+        const sortedPosts = Object.values(posts).sort(
+            (a, b) => (a.timestamp - b.timestamp));
 
         return (
             <div className="rbl-post-summary-list">
-                { posts.map((post) => (
+                { sortedPosts.map((post) => (
                     <PostSummaryItem key={post.id} post={post} />
                 ))}
-                { (posts.length === 0) && (
+                { (sortedPosts.length === 0) && (
                     <div className="rd-post-summary-none">
                         No posts here!
                     </div>

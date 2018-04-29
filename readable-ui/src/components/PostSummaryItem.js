@@ -6,23 +6,6 @@ import { voteOnPost, UP_VOTE, DOWN_VOTE } from '../actions/actions';
 import UpDownButtons from './UpDownButtons';
 import './PostSummaryItem.css';
 
-// Map the app state to component props.
-const mapStateToProps = (state, ownProps) => {
-    const { post } = ownProps;
-
-    let isUpVoted = false;
-    let isDownVoted = false;
-    if (state.posts && state.posts[post.id]) {
-        const postState = state.posts[post.id];
-        console.info('STATE: ' + JSON.stringify(postState));
-        isUpVoted = (postState.isUpVoted === true);
-        isDownVoted = (postState.isDownVoted === true);
-    }
-
-    console.log('mapStateToProps: ' + post.id + ' ' + isUpVoted + ' ' + isDownVoted);
-    return { isUpVoted, isDownVoted };
-};
-
 /**
  * A short summary of a user post.
  *   It renders the title, author and buttons to up/down vote.
@@ -37,29 +20,24 @@ class PostSummaryItem extends Component {
     _onVoteUp() {
         const { post, dispatch } = this.props;
         console.info('Up vote post: ' + post.id);
-        dispatch(voteOnPost(post.id, UP_VOTE));
+        dispatch(voteOnPost(post.id, UP_VOTE, post.category));
     }
 
     _onVoteDown() {
         const { post, dispatch } = this.props;
         console.info('Down vote post: ' + post.id);
-        dispatch(voteOnPost(post.id, DOWN_VOTE));
+        dispatch(voteOnPost(post.id, DOWN_VOTE, post.category));
     }
 
     render() {
-        const { post, isUpVoted, isDownVoted } = this.props;
-        console.info('Render post summary: ' + post.id);
-        console.info(`isUpVoted=${isUpVoted} ****`);
-        console.info(`isDownVoted=${isDownVoted} ****`);
+        const { post } = this.props;
         const postTo = `/${post.category}/${post.id}`;
 
         return (
             <div className="rd-post-summary-item">
                 <UpDownButtons
-                    isUpVoted={isUpVoted}
-                    isDownVoted={isDownVoted}
                     onClickUp={this._onVoteUp.bind(this)}
-                    onClickDown={this._onVoteDown.bind(this)}/>
+                    onClickDown={this._onVoteDown.bind(this)} />
                 <div className="rd-post-summary">
                     <div className="rd-post-title">
                         <Link to={postTo}>{post.title}</Link>
@@ -76,4 +54,4 @@ class PostSummaryItem extends Component {
     };
 }
 
-export default connect(mapStateToProps)(PostSummaryItem);
+export default connect()(PostSummaryItem);

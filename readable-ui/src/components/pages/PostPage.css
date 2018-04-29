@@ -6,6 +6,11 @@
     padding: 4px 10px;
 }
 
+.rd-post-header {
+    display: flex;
+    flex-direction: row;
+}
+
 .rd-post-header-line1 {
     font-size: 120%;
 }

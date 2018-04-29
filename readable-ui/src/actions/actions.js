@@ -37,10 +37,11 @@ export const receivePosts = posts => ({
     posts
 });
 
-export const createVoteOnPost = (postId, option) => ({
+export const createVoteOnPost = (postId, option, category) => ({
     type: VOTE_ON_POST,
     postId,
-    option
+    option,
+    category
 });
 
 /** Thunks */
@@ -71,9 +72,9 @@ export const fetchCategoryPosts = (category) => dispatch => (
             dispatch(receiveCategoryPosts(category, response)))
 );
 
-export const voteOnPost = (postId, option) => dispatch => (
+export const voteOnPost = (postId, option, category) => dispatch => (
     // (could dispatch action first, so that the UI is updated sooner.)
     ReadableAPI.voteOnPost(postId, option)
         .then(() =>
-            dispatch(createVoteOnPost(postId, option)))
+            dispatch(createVoteOnPost(postId, option, category)))
 );

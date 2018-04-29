@@ -11,17 +11,17 @@ import './UpDownButtons.css';
 class UpDownButtons extends Component {
 
     static propTypes = {
-        /** Indicates if the user has clicked the buttons. */
-        isUpVoted: PropTypes.bool.isRequired,
-        isDownVoted: PropTypes.bool.isRequired,
-
         /** Handlers: When the user clicks a button. */
         onClickUp: PropTypes.func,
-        onClickDown: PropTypes.func
+        onClickDown: PropTypes.func,
+
+        /** Indicates if the user has clicked the buttons. */
+        isUpVoted: PropTypes.bool,
+        isDownVoted: PropTypes.bool
     }
 
     render() {
-        const { isUpVoted, isDownVoted, onClickUp, onClickDown } = this.props;
+        const { onClickUp, onClickDown, isUpVoted, isDownVoted } = this.props;
         const upClass = (isUpVoted === true) ? 'rd-button-used' : 'rd-button-unused';
         const downClass = (isDownVoted === true) ? 'rd-button-used' : 'rd-button-unused';
 

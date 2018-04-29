@@ -8,8 +8,9 @@ import './CategoryPage.css';
 // Map the app state to component props.
 const mapStateToProps = (state, ownProps) => {
     const { category } = ownProps;
-    const posts = (state.categories && state.categories[category])
-        ? state.categories[category].posts : [];
+
+    const posts = (state.categories[category])
+        ? state.categories[category].posts : {};
 
     return { posts };
 };

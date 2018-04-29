@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPostAndComments } from '../../actions/actions';
 import CommentItem from '../CommentItem';
+import UpDownButtons from '../UpDownButtons';
+import { voteOnPost, UP_VOTE, DOWN_VOTE } from '../../actions/actions';
 import './PostPage.css';
 
 // Map the app state to component props.
@@ -45,6 +47,18 @@ class PostPage extends Component {
         }
     }
 
+    _onVoteUp() {
+        const { post, dispatch } = this.props;
+        console.info('Up vote post: ' + post.id);
+        dispatch(voteOnPost(post.id, UP_VOTE, post.category));
+    }
+
+    _onVoteDown() {
+        const { post, dispatch } = this.props;
+        console.info('Down vote post: ' + post.id);
+        dispatch(voteOnPost(post.id, DOWN_VOTE, post.category));
+    }
+
     render() {
         const { postId, post, comments } = this.props;
         console.info('Render post: ' + postId + ' ' +
@@ -56,9 +70,14 @@ class PostPage extends Component {
         return (
             <div className="rd-post-page">
                 <div className="rd-post-header">
-                    <div className="rd-post-header-line1">{post.title}</div>
-                    <div className="rd-post-header-line2">
-                        {post.voteScore} points, 1 hour ago by {post.author}
+                    <UpDownButtons
+                        onClickUp={this._onVoteUp.bind(this)}
+                        onClickDown={this._onVoteDown.bind(this)} />
+                    <div className="rd-post-header-lines">
+                        <div className="rd-post-header-line1">{post.title}</div>
+                        <div className="rd-post-header-line2">
+                            {post.voteScore} points, 1 hour ago by {post.author}
+                        </div>
                     </div>
                 </div>
                 <div className="rd-post-body">

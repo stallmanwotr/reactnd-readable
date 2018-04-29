@@ -20,17 +20,15 @@ class DefaultPage extends Component {
 
     componentDidMount() {
         const { dispatch } = this.props;
-
-        // fetch and update the app state.
+        // fetch all posts and update the app state.
         dispatch(fetchPosts());
     }
 
     render() {
         const { posts } = this.props;
-
         return (
             <div className="rd-default-page">
-                { (posts && Array.isArray(posts)) && (
+                { (posts) && (
                     <PostSummaryList posts={posts} />
                 )}
             </div>
