@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
     const { postId } = ownProps;
 
     let post = null;
-    let comments = [];
+    let comments = {};
     if (state.posts && state.posts[postId]) {
         post = state.posts[postId].post;
         comments = state.posts[postId].comments;
@@ -60,13 +60,13 @@ class PostPage extends Component {
     }
 
     render() {
-        const { postId, post, comments } = this.props;
-        console.info('Render post: ' + postId + ' ' +
-                     ((post && post.title) ? `'${post.title}'` : null));
-
+        const { post, comments } = this.props;
         if (!post || post.deleted) {
             return null;
         }
+        const sortedComments = Object.values(comments).sort(
+            (a, b) => (a.timestamp - b.timestamp));
+
         return (
             <div className="rd-post-page">
                 <div className="rd-post-header">
@@ -85,7 +85,7 @@ class PostPage extends Component {
                 </div>
                 <div className="rd-post-comments">
                     <div className="rd-post-comments-header">Comments:</div>
-                    { comments.map((comment) => (
+                    { sortedComments.map((comment) => (
                         <CommentItem key={comment.id} comment={comment} />
                     ))}
                 </div>

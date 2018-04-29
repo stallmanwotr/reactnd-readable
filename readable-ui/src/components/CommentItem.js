@@ -1,22 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import UpDownButtons from './UpDownButtons';
+import { voteOnComment, UP_VOTE, DOWN_VOTE } from '../actions/actions';
 import './CommentItem.css';
 
 /**
- * An individual comment, including vote buttons and score.
- *
- * Example Comment:
- * {  
- *     "id":"894tuq4ut84ut8v4t8wun89g",
- *     "parentId":"8xf0y6ziyjabvozdd253nd",
- *     "timestamp":1468166872634,
- *     "body":"Hi there! I am a COMMENT.",
- *     "author":"thingtwo",
- *     "voteScore":6,
- *     "deleted":false,
- *     "parentDeleted":false
- * }
+ * An individual comment, including score and voting buttons.
  */
 class CommentItem extends Component {
 
@@ -24,11 +14,29 @@ class CommentItem extends Component {
         comment: PropTypes.object.isRequired
     }
 
+    _onVoteUp() {
+        const { comment, dispatch } = this.props;
+        const postId = comment.parentId;
+
+        console.info('Up vote comment: ' + comment.id);
+        dispatch(voteOnComment(comment.id, UP_VOTE, postId));
+    }
+
+    _onVoteDown() {
+        const { comment, dispatch } = this.props;
+        const postId = comment.parentId;
+
+        console.info('Down vote comment: ' + comment.id);
+        dispatch(voteOnComment(comment.id, DOWN_VOTE, postId));
+    }
+
     render() {
         const { comment } = this.props;
         return (
             <div className="rd-comment-item">
-                <UpDownButtons />
+                <UpDownButtons
+                    onClickUp={this._onVoteUp.bind(this)}
+                    onClickDown={this._onVoteDown.bind(this)} />
                 <div>
                     <div className="rd-comment-body">{comment.body}</div>
                     <div className="rd-comment-meta">
@@ -40,4 +48,4 @@ class CommentItem extends Component {
     };
 }
 
-export default CommentItem;
+export default connect()(CommentItem);

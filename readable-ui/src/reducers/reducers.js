@@ -5,6 +5,7 @@ import {
     RECEIVE_POST_AND_COMMENTS,
     RECEIVE_POSTS,
     UP_VOTE,
+    VOTE_ON_COMMENT,
     VOTE_ON_POST
 } from '../actions/actions';
 
@@ -102,9 +103,13 @@ function categoryReducer(state = {}, action) {
 }
 
 /**
- * The 'postReducer' handles individual posts and their associated comments.
+ * The 'postReducer' handles individual posts and their comments. It basically
+ * corresponds to the 'post' pages.
  */
 function postReducer(state = {}, action) {
+    const { option, postId } = action;
+    let voteDelta, newScore;
+
     switch (action.type) {
     case RECEIVE_POST_AND_COMMENTS:
         const { post, comments } = action;
@@ -113,16 +118,16 @@ function postReducer(state = {}, action) {
             [post.id]: {
                 ...state[post.id],
                 post,
-                comments
+                // convert the array to an object/map indexed by commentId:
+                comments: _reduceToObjectById(comments)
             }
         };
     case VOTE_ON_POST:
-        const { postId, option } = action;
         if (!state[postId] || !state[postId].post) {
             return state;
         }
-        const voteDelta = (option === UP_VOTE) ? 1 : -1;
-        const newScore = state[postId].post.voteScore + voteDelta;
+        voteDelta = (option === UP_VOTE) ? 1 : -1;
+        newScore = state[postId].post.voteScore + voteDelta;
         return {
             ...state,
             [postId]: {
@@ -130,6 +135,26 @@ function postReducer(state = {}, action) {
                 post: {
                     ...state[postId].post,
                     voteScore: newScore
+                }
+            }
+        };
+    case VOTE_ON_COMMENT:
+        const { commentId } = action;
+        if (!state[postId] || !state[postId].comments[commentId]) {
+            return state;
+        }
+        voteDelta = (option === UP_VOTE) ? 1 : -1;
+        newScore = state[postId].comments[commentId].voteScore + voteDelta;
+        return {
+            ...state,
+            [postId]: {
+                ...state[postId],
+                comments: {
+                    ...state[postId].comments,
+                    [commentId]: {
+                        ...state[postId].comments[commentId],
+                        voteScore: newScore
+                    }
                 }
             }
         };

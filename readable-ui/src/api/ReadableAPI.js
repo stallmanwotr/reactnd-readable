@@ -89,6 +89,18 @@ export const getPostComments = (postId) => {
 
 /**
  * Get the details for a single comment.
+ *
+ * Example JSON:
+ * {  
+ *     "id":"894tuq4ut84ut8v4t8wun89g",
+ *     "parentId":"8xf0y6ziyjabvozdd253nd",
+ *     "timestamp":1468166872634,
+ *     "body":"Hi there! I am a COMMENT.",
+ *     "author":"thingtwo",
+ *     "voteScore":6,
+ *     "deleted":false,
+ *     "parentDeleted":false
+ * }
  */
 export const getComment = (commentId) => {
     return doGet(`/comments/${commentId}`);

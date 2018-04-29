@@ -11,6 +11,7 @@ export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS';
 export const RECEIVE_POST_AND_COMMENTS = 'RECEIVE_POST_AND_COMMENTS';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
+export const VOTE_ON_COMMENT = 'VOTE_ON_COMMENT';
 export const VOTE_ON_POST = 'VOTE_ON_POST';
 
 /** Action Creators */
@@ -35,6 +36,13 @@ export const receivePostAndComments = (post, comments) => ({
 export const receivePosts = posts => ({
     type: RECEIVE_POSTS,
     posts
+});
+
+export const createVoteOnComment = (commentId, option, postId) => ({
+    type: VOTE_ON_COMMENT,
+    commentId,
+    option,
+    postId
 });
 
 export const createVoteOnPost = (postId, option, category) => ({
@@ -72,9 +80,17 @@ export const fetchCategoryPosts = (category) => dispatch => (
             dispatch(receiveCategoryPosts(category, response)))
 );
 
+export const voteOnComment = (commentId, option, postId) => dispatch => (
+    // (could dispatch action first, so that the UI is updated sooner.)
+    ReadableAPI.voteOnComment(commentId, option)
+        .then(() =>
+            dispatch(createVoteOnComment(commentId, option, postId)))
+);
+
 export const voteOnPost = (postId, option, category) => dispatch => (
     // (could dispatch action first, so that the UI is updated sooner.)
     ReadableAPI.voteOnPost(postId, option)
         .then(() =>
             dispatch(createVoteOnPost(postId, option, category)))
 );
+
