@@ -85,6 +85,7 @@ class CategoryPage extends Component {
                 </div>
 
                 <AddPostDialog
+                    category={category}
                     isModalOpen={addPostDialogOpen}
                     onAddButton={this.closeAddPostDialog.bind(this)}
                     onCancelButton={this.closeAddPostDialog.bind(this)}

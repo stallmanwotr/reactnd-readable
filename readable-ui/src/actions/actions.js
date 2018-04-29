@@ -13,6 +13,7 @@ export const RECEIVE_POST_AND_COMMENTS = 'RECEIVE_POST_AND_COMMENTS';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 export const VOTE_ON_COMMENT = 'VOTE_ON_COMMENT';
 export const VOTE_ON_POST = 'VOTE_ON_POST';
+export const ADD_POST = 'ADD_POST';
 
 /** Action Creators */
 
@@ -50,6 +51,11 @@ export const createVoteOnPost = (postId, option, category) => ({
     postId,
     option,
     category
+});
+
+export const createAddPost = (postInfo) => ({
+    type: ADD_POST,
+    postInfo
 });
 
 /** Thunks */
@@ -92,5 +98,11 @@ export const voteOnPost = (postId, option, category) => dispatch => (
     ReadableAPI.voteOnPost(postId, option)
         .then(() =>
             dispatch(createVoteOnPost(postId, option, category)))
+);
+
+export const addPost = (postInfo) => dispatch => (
+    ReadableAPI.addPost(postInfo)
+        .then(() =>
+            dispatch(createAddPost(postInfo)))
 );
 

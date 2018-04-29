@@ -108,6 +108,13 @@ export const getComment = (commentId) => {
 
 /**
  * Add a new post.
+ *
+ * id - UUID should be fine, but any unique id will work
+ * timestamp - timestamp in whatever format you like, you can use Date.now() if you like
+ * title - String
+ * body - String
+ * author - String
+ * category: Any of the categories listed in categories.js.
  */
 export const addPost = (postInfo) => {
     return doPost('/posts', postInfo);
