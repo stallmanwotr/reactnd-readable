@@ -29,6 +29,10 @@
     flex-direction: column;
 }
 
+.rd-add-post-title {
+    font-style: italic;
+}
+
 .rd-modal-buttons {
     display: flex;
     flex-direction: row;
@@ -48,3 +52,6 @@
     text-align: center;
 }
 
+.rd-modal-button-add {
+    background: orange;
+}

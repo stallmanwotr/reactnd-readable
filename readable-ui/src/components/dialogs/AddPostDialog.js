@@ -11,21 +11,20 @@ class AddPostDialog extends Component {
 
     static propTypes = {
         /** The user post to be shown. */
-        isModalOpen: PropTypes.bool.isRequired
+        isModalOpen: PropTypes.bool.isRequired,
+
+        /** Handlers: When the user clicks a button. */
+        onAddButton: PropTypes.func,
+        onCancelButton: PropTypes.func
     }
 
     componentWillMount() {
         Modal.setAppElement('body');
     }
 
-    _onCancelButton() {
-    }
-
-    _onAddButton() {
-    }
-
     render() {
-        const { isModalOpen } = this.props;
+        const { isModalOpen, onAddButton, onCancelButton } = this.props;
+        console.log('#### isModalOpen=' + isModalOpen);
 
         return (
             <Modal
@@ -41,11 +40,11 @@ class AddPostDialog extends Component {
                     </div>
                     <div className="rd-modal-buttons">
                         <div className="rd-modal-button"
-                            onClick={this._onCancelButton.bind(this)} >
+                            onClick={() => { if (onCancelButton) { onCancelButton(); }}} >
                             Cancel
                         </div>
-                        <div className="rd-modal-button"
-                            onClick={this._onAddButton.bind(this)} >
+                        <div className="rd-modal-button rd-modal-button-add"
+                            onClick={() => { if (onAddButton) { onAddButton(); }}} >
                             Add
                         </div>
                     </div>

@@ -22,11 +22,11 @@ class UpDownButtons extends Component {
         return (
             <div className="rd-up-down-buttons">
                 <div className="rd-button"
-                    onClick={() => { if (onClickUp) { onClickUp(); } }} >
+                    onClick={() => { if (onClickUp) { onClickUp(); }}} >
                     <Icon icon={chevronUp} />
                 </div>
                 <div className="rd-button"
-                    onClick={() => { if (onClickDown) { onClickDown(); } }} >
+                    onClick={() => { if (onClickDown) { onClickDown(); }}} >
                     <Icon icon={chevronDown} />
                 </div>
             </div>

@@ -51,8 +51,15 @@ class CategoryPage extends Component {
         }
     }
 
-    openAddPostDialog = () => this.setState(() => ({ addPostDialogOpen: true }));
-    closeAddPostDialog = () => this.setState(() => ({ addPostDialogOpen: false }));
+    openAddPostDialog() {
+        console.info('openAddPostDialog ****');
+        this.setState(() => ({ addPostDialogOpen: true }));
+    }
+
+    closeAddPostDialog() {
+        console.info('closeAddPostDialog ****');
+        this.setState(() => ({ addPostDialogOpen: false }));
+    }
 
     _onAddPostButton() {
         console.info('Launching: Add Post Dialog');
@@ -79,6 +86,8 @@ class CategoryPage extends Component {
 
                 <AddPostDialog
                     isModalOpen={addPostDialogOpen}
+                    onAddButton={this.closeAddPostDialog.bind(this)}
+                    onCancelButton={this.closeAddPostDialog.bind(this)}
                 />
             </div>
         );
