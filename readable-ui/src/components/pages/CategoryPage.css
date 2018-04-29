@@ -1,6 +1,19 @@
 
 .rd-category-page {
     margin: 15px 5%;
+}
+
+.rd-category-header {
+    display: inline-flex;
+    flex-direction: row;
+    background: orange;
+    padding: 4px 30px;
+    font-size: 110%;
+    font-style: italic;
+    box-shadow: 0px 0px 3px 3px rgba(220,220,220,0.4);
+}
+
+.rd-category-posts {
     background: #fefecd;
     box-shadow: 0px 0px 3px 3px rgba(220,220,220,0.4);
 }

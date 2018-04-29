@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import UpDownButtons from './UpDownButtons';
 import { voteOnComment, UP_VOTE, DOWN_VOTE } from '../actions/actions';
+import { formatTimestamp } from '../utils/Utils';
 import './CommentItem.css';
 
 /**
@@ -32,6 +33,8 @@ class CommentItem extends Component {
 
     render() {
         const { comment } = this.props;
+        const commentTime = formatTimestamp(comment.timestamp);
+
         return (
             <div className="rd-comment-item">
                 <UpDownButtons
@@ -40,7 +43,7 @@ class CommentItem extends Component {
                 <div>
                     <div className="rd-comment-body">{comment.body}</div>
                     <div className="rd-comment-meta">
-                        {comment.voteScore} points, 11 minutes ago by {comment.author}
+                        {comment.voteScore} points, posted {commentTime} by {comment.author}
                     </div>
                 </div>
             </div>

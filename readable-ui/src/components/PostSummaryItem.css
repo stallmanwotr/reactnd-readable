@@ -33,3 +33,12 @@
 .rd-post-2nd-line div {
     padding: 0 20px 0 0;
 }
+
+.rd-post-2nd-line a {
+    padding: 0 20px 0 0;
+    text-decoration: none;
+}
+
+.rd-post-2nd-line a:visited {
+    color: inherit;
+}

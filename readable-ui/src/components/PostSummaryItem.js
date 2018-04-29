@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { voteOnPost, UP_VOTE, DOWN_VOTE } from '../actions/actions';
 import UpDownButtons from './UpDownButtons';
+import { formatTimestamp } from '../utils/Utils';
 import './PostSummaryItem.css';
 
 /**
@@ -32,6 +33,7 @@ class PostSummaryItem extends Component {
     render() {
         const { post } = this.props;
         const postTo = `/${post.category}/${post.id}`;
+        const postTime = formatTimestamp(post.timestamp);
 
         return (
             <div className="rd-post-summary-item">
@@ -44,9 +46,9 @@ class PostSummaryItem extends Component {
                     </div>
                     <div className="rd-post-2nd-line">
                         <div>{post.voteScore} points</div>
-                        <div>-- {post.category} --</div>
+                        <Link to={'/' + post.category}>-- {post.category} --</Link>
                         <div>{post.commentCount} comments</div>
-                        <div>posted by {post.author}</div>
+                        <div>posted {postTime} by {post.author}</div>
                     </div>
                 </div>
             </div>

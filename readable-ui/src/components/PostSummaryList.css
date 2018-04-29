@@ -10,8 +10,9 @@
 
 .rd-post-summary-none {
     background: white;
+    color: grey;
     border-top: 2px solid #e0e0e0;
-    padding: 10px 10px;
+    padding: 12px 18px;
     font-style: italic;
 }
 

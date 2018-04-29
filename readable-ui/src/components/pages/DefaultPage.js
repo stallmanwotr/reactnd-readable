@@ -28,9 +28,16 @@ class DefaultPage extends Component {
         const { posts } = this.props;
         return (
             <div className="rd-default-page">
-                { (posts) && (
-                    <PostSummaryList posts={posts} />
-                )}
+                <div className="rd-category-header">
+                    <div className="rd-category-title">
+                        all
+                    </div>
+                </div>
+                <div className="rd-default-posts">
+                    { (posts) && (
+                        <PostSummaryList posts={posts} />
+                    )}
+                </div>
             </div>
         );
     };

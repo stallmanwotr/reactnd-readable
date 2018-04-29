@@ -50,8 +50,15 @@ class CategoryPage extends Component {
         console.info('Render category: ' + category);
 
         return (
-            <div className="rd-category-page" >
-                <PostSummaryList posts={posts} />
+            <div className="rd-category-page">
+                <div className="rd-category-header">
+                    <div className="rd-category-title">
+                        {category}
+                    </div>
+                </div>
+                <div className="rd-category-posts">
+                    <PostSummaryList posts={posts} />
+                </div>
             </div>
         );
     };

@@ -5,6 +5,7 @@ import { fetchPostAndComments } from '../../actions/actions';
 import CommentItem from '../CommentItem';
 import UpDownButtons from '../UpDownButtons';
 import { voteOnPost, UP_VOTE, DOWN_VOTE } from '../../actions/actions';
+import { formatTimestamp } from '../../utils/Utils';
 import './PostPage.css';
 
 // Map the app state to component props.
@@ -64,6 +65,7 @@ class PostPage extends Component {
         if (!post || post.deleted) {
             return null;
         }
+        const postTime = formatTimestamp(post.timestamp);
         const sortedComments = Object.values(comments).sort(
             (a, b) => (a.timestamp - b.timestamp));
 
@@ -76,7 +78,7 @@ class PostPage extends Component {
                     <div className="rd-post-header-lines">
                         <div className="rd-post-header-line1">{post.title}</div>
                         <div className="rd-post-header-line2">
-                            {post.voteScore} points, 1 hour ago by {post.author}
+                            {post.voteScore} points, posted {postTime} by {post.author}
                         </div>
                     </div>
                 </div>

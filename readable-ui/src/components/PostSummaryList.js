@@ -24,7 +24,7 @@ class PostSummaryList extends Component {
                     <PostSummaryItem key={post.id} post={post} />
                 ))}
                 { (sortedPosts.length === 0) && (
-                    <div className="rd-post-summary-none">
+                    <div className="rd-post-summary-item rd-post-summary-none">
                         No posts here!
                     </div>
                 )}
