@@ -65,7 +65,7 @@
             200
         ],
         "camelcase": [
-            2,
+            1,
             {
                 "properties": "never"
             }

@@ -13,25 +13,19 @@ class UpDownButtons extends Component {
     static propTypes = {
         /** Handlers: When the user clicks a button. */
         onClickUp: PropTypes.func,
-        onClickDown: PropTypes.func,
-
-        /** Indicates if the user has clicked the buttons. */
-        isUpVoted: PropTypes.bool,
-        isDownVoted: PropTypes.bool
+        onClickDown: PropTypes.func
     }
 
     render() {
-        const { onClickUp, onClickDown, isUpVoted, isDownVoted } = this.props;
-        const upClass = (isUpVoted === true) ? 'rd-button-used' : 'rd-button-unused';
-        const downClass = (isDownVoted === true) ? 'rd-button-used' : 'rd-button-unused';
+        const { onClickUp, onClickDown } = this.props;
 
         return (
             <div className="rd-up-down-buttons">
-                <div className={'rd-button ' + upClass}
+                <div className="rd-button"
                     onClick={() => { if (onClickUp) { onClickUp(); } }} >
                     <Icon icon={chevronUp} />
                 </div>
-                <div className={'rd-button ' + downClass}
+                <div className="rd-button"
                     onClick={() => { if (onClickDown) { onClickDown(); } }} >
                     <Icon icon={chevronDown} />
                 </div>

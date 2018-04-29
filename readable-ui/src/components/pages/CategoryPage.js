@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCategoryPosts } from '../../actions/actions';
+import AddPostButton from '../AddPostButton';
+import AddPostDialog from '../dialogs/AddPostDialog';
 import PostSummaryList from '../PostSummaryList';
 import './CategoryPage.css';
 
@@ -26,6 +28,10 @@ class CategoryPage extends Component {
         category: PropTypes.string.isRequired
     }
 
+    state = {
+        addPostDialogOpen: false
+    }
+
     componentDidMount() {
         const { category, dispatch } = this.props;
 
@@ -45,8 +51,17 @@ class CategoryPage extends Component {
         }
     }
 
+    openAddPostDialog = () => this.setState(() => ({ addPostDialogOpen: true }));
+    closeAddPostDialog = () => this.setState(() => ({ addPostDialogOpen: false }));
+
+    _onAddPostButton() {
+        console.info('Launching: Add Post Dialog');
+        this.openAddPostDialog();
+    }
+
     render() {
         const { category, posts } = this.props;
+        const { addPostDialogOpen } = this.state;
         console.info('Render category: ' + category);
 
         return (
@@ -55,10 +70,16 @@ class CategoryPage extends Component {
                     <div className="rd-category-title">
                         {category}
                     </div>
+                    <AddPostButton
+                        onAddPost={this._onAddPostButton.bind(this)} />
                 </div>
                 <div className="rd-category-posts">
                     <PostSummaryList posts={posts} />
                 </div>
+
+                <AddPostDialog
+                    isModalOpen={addPostDialogOpen}
+                />
             </div>
         );
     };

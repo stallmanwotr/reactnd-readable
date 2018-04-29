@@ -6,6 +6,11 @@
 .rd-category-header {
     display: inline-flex;
     flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.rd-category-title {
     background: orange;
     padding: 4px 30px;
     font-size: 110%;
@@ -17,4 +22,3 @@
     background: #fefecd;
     box-shadow: 0px 0px 3px 3px rgba(220,220,220,0.4);
 }
-
