@@ -32,8 +32,11 @@ class PostSummaryItem extends Component {
 
     render() {
         const { post } = this.props;
+
+        const postPoints = post.voteScore + ((post.voteScore === 1) ? ' point' : ' points');
         const postTo = `/${post.category}/${post.id}`;
         const postTime = formatTimestamp(post.timestamp);
+        const postedBy = `posted ${postTime} by ${post.author}`;
 
         return (
             <div className="rd-post-summary-item">
@@ -45,10 +48,10 @@ class PostSummaryItem extends Component {
                         <Link to={postTo}>{post.title}</Link>
                     </div>
                     <div className="rd-post-2nd-line">
-                        <div>{post.voteScore} points</div>
+                        <div>{postPoints}</div>
                         <Link to={'/' + post.category}>-- {post.category} --</Link>
                         <div>{post.commentCount} comments</div>
-                        <div>posted {postTime} by {post.author}</div>
+                        <div>{postedBy}</div>
                     </div>
                 </div>
             </div>

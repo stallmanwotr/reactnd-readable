@@ -11,7 +11,7 @@ import './PostPageButton.css';
 class EditPostButton extends Component {
 
     static propTypes = {
-        /** Handlers: When the user clicks a button. */
+        /** Handler: When the user clicks the button. */
         onEditPost: PropTypes.func,
     }
 

@@ -14,3 +14,7 @@
     font-size: 80%;
 }
 
+.rd-comment-meta-clickable:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

@@ -39,6 +39,10 @@
     text-decoration: none;
 }
 
+.rd-post-2nd-line a:hover {
+    text-decoration: underline;
+}
+
 .rd-post-2nd-line a:visited {
     color: inherit;
 }

@@ -109,15 +109,26 @@ export const getComment = (commentId) => {
 /**
  * Add a new post.
  *
- * id - UUID should be fine, but any unique id will work
- * timestamp - timestamp in whatever format you like, you can use Date.now() if you like
- * title - String
- * body - String
- * author - String
- * category: Any of the categories listed in categories.js.
+ * PARAMS:
+ *   id - UUID should be fine, but any unique id will work
+ *   timestamp - timestamp in whatever format you like, you can use Date.now() if you like
+ *   title - String
+ *   body - String
+ *   author - String
+ *   category: Any of the categories listed in categories.js.
  */
 export const addPost = (postInfo) => {
     return doPost('/posts', postInfo);
+};
+
+/**
+ * Deletes a post.
+ *
+ * Sets the deleted flag for a post to 'true'.
+ * Sets the parentDeleted flag for all child comments to 'true'.
+ */
+export const deletePost = (postId) => {
+    return doDelete(`/posts/${postId}`);
 };
 
 /**
@@ -131,6 +142,13 @@ export const voteOnPost = (postId, option) => {
 
 /**
  * Add a comment to a post.
+ *
+ * PARAMS:
+ *   id: Any unique ID. As with posts, UUID is probably the best here.
+ *   timestamp: timestamp. Get this however you want.
+ *   body: String
+ *   author: String
+ *   parentId: Should match a post id in the database.
  */
 export const addComment = (commentInfo) => {
     return doPost('/comments', commentInfo);

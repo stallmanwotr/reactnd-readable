@@ -3,26 +3,27 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import uuidv1 from 'uuid/v1';
-import { addPost, editPost } from '../../actions/actions';
+import { addComment, editComment } from '../../actions/actions';
 import './ModalDialog.css';
 
 /**
  * (Dialog Box)
- * Add a new user post, or edit an existing post.
+ * Add a new comment, or edit an existing comment.
  */
-class AddPostDialog extends Component {
+class AddCommentDialog extends Component {
 
     static propTypes = {
-        category: PropTypes.string.isRequired,
+        /** The parent post for this comment. */
+        postId: PropTypes.string.isRequired,
 
-        /** The user post to be shown. */
+        /** The user comment to be shown. */
         isModalOpen: PropTypes.bool.isRequired,
 
         /** Handler: The user closes the modal (via add or close button). */
         onCloseModal: PropTypes.func,
 
-        /** If set then the existing post to be edited. */
-        postToEdit: PropTypes.object
+        /** If set then the existing comment to be edited. */
+        commentToEdit: PropTypes.object
     }
 
     state = {
@@ -34,8 +35,8 @@ class AddPostDialog extends Component {
     }
 
     _onAddOrEditButton() {
-        const { postToEdit } = this.props;
-        const isEditMode = (typeof postToEdit === 'object');
+        const { commentToEdit } = this.props;
+        const isEditMode = (typeof commentToEdit === 'object');
         if (isEditMode) {
             this._onEditButton();
         }
@@ -45,31 +46,29 @@ class AddPostDialog extends Component {
     }
 
     _onAddButton() {
-        const { category, dispatch } = this.props;
+        const { postId, dispatch } = this.props;
         const author = this.inputAuthor.value;;
-        const title = this.inputTitle.value;
         const body = this.state.textAreaValue;
 
-        const postInfo = {
+        const commentInfo = {
             id: uuidv1(),
             timestamp: new Date().getTime(),
-            title,
-            body,
+            parentId: postId,
             author,
-            category
+            body
         };
 
-        console.info('Add post: ' + JSON.stringify(postInfo));
-        dispatch(addPost(postInfo));
+        console.info('Add comment: ' + JSON.stringify(commentInfo));
+        dispatch(addComment(commentInfo));
     }
 
     _onEditButton() {
-        const { postToEdit, dispatch } = this.props;
-        const title = this.inputTitle.value;
+        const { commentToEdit, dispatch } = this.props;
+        const timestamp = new Date().getTime();
         const body = this.state.textAreaValue;
         
-        console.info('Edit post: ' + postToEdit.id);
-        dispatch(editPost(postToEdit.id, title, body));
+        console.info('Edit comment: ' + commentToEdit.id);
+        dispatch(editComment(commentToEdit.id, timestamp, body));
     }
 
     _handleTextAreaChange(event) {
@@ -77,8 +76,8 @@ class AddPostDialog extends Component {
     }
 
     render() {
-        const { isModalOpen, onCloseModal, postToEdit } = this.props;
-        const isEditMode = (typeof postToEdit === 'object');
+        const { isModalOpen, onCloseModal, commentToEdit } = this.props;
+        const isEditMode = (typeof commentToEdit === 'object');
 
         return (
             <Modal
@@ -90,36 +89,26 @@ class AddPostDialog extends Component {
             >
                 <div className="rd-modal-body">
                     <div className="rd-modal-header">
-                        {(postToEdit) ? 'Edit Post' : 'Add a Post'}
+                        {(commentToEdit) ? 'Edit Comment' : 'Add a Comment'}
                     </div>
 
                     <div className="rd-modal-subheader">Author</div>
-                    <div className="rd-add-post-author">
+                    <div className="rd-add-comment-author">
                         <input
                             type="text"
                             className="rd-modal-input"
                             placeholder="Author"
-                            defaultValue={(isEditMode) ? postToEdit.author : undefined}
+                            defaultValue={(isEditMode) ? commentToEdit.author : undefined}
                             disabled={isEditMode}
                             ref={(input) => this.inputAuthor = input} />
                     </div>
 
-                    <div className="rd-modal-subheader">Title</div>
-                    <div className="rd-add-post-title">
-                        <input
-                            className="rd-modal-input"
-                            type="text"
-                            placeholder="Post Title"
-                            defaultValue={(isEditMode) ? postToEdit.title : undefined}
-                            ref={(input) => this.inputTitle = input} />
-                    </div>
-
                     <div className="rd-modal-subheader">Body</div>
-                    <div className="rd-add-post-body">
+                    <div className="rd-add-comment-body">
                         <textarea
                             className="rd-modal-input rd-modal-textarea"
-                            placeholder="Post Content"
-                            defaultValue={(isEditMode) ? postToEdit.body : undefined}
+                            placeholder="Comment Content"
+                            defaultValue={(isEditMode) ? commentToEdit.body : undefined}
                             value={this.state.value}
                             onChange={this._handleTextAreaChange.bind(this)} />
                     </div>
@@ -143,4 +132,4 @@ class AddPostDialog extends Component {
     };
 }
 
-export default connect()(AddPostDialog);
+export default connect()(AddCommentDialog);

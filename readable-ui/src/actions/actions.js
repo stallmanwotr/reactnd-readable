@@ -8,7 +8,11 @@ export const DOWN_VOTE = 'downVote';
 /** Action Types */
 
 export const ADD_POST = 'ADD_POST';
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const DELETE_POST = 'DELETE_POST';
 export const EDIT_POST = 'EDIT_POST';
+export const EDIT_COMMENT = 'EDIT_COMMENT';
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS';
 export const RECEIVE_POST_AND_COMMENTS = 'RECEIVE_POST_AND_COMMENTS';
@@ -62,6 +66,27 @@ const createAddPost = (postInfo) => ({
 const createEditPost = (postInfo) => ({
     type: EDIT_POST,
     postInfo
+});
+
+const createAddComment = (commentInfo) => ({
+    type: ADD_COMMENT,
+    commentInfo
+});
+
+const createEditComment = (commentInfo) => ({
+    type: EDIT_COMMENT,
+    commentInfo
+});
+
+const createDeletePost = (postId) => ({
+    type: DELETE_POST,
+    postId
+});
+
+const createDeleteComment = (postId, commentId) => ({
+    type: DELETE_COMMENT,
+    postId,
+    commentId
 });
 
 /** Thunks */
@@ -123,3 +148,36 @@ export const editPost = (postId, title, body) => dispatch => (
                 .then(responsePostInfo =>
                     dispatch(createEditPost(responsePostInfo))))
 );
+
+export const addComment = (commentInfo) => dispatch => (
+    // first, we add the comment using the commentInfo. then we fetch to get the
+    // comment, as this brings in the other fields (voteScore, deleted, etc.).
+    ReadableAPI.addComment(commentInfo)
+        .then(() =>
+            ReadableAPI.getComment(commentInfo.id)
+                .then(responseInfo =>
+                    dispatch(createAddComment(responseInfo))))
+);
+
+export const editComment = (commentId, timestamp, body) => dispatch => (
+    // first, we add the comment using the commentInfo. then we fetch to get the
+    // comment, as this brings in the other fields (voteScore, deleted, etc.).
+    ReadableAPI.editComment(commentId, timestamp, body)
+        .then(() =>
+            ReadableAPI.getComment(commentId)
+                .then(responseInfo =>
+                    dispatch(createEditComment(responseInfo))))
+);
+
+export const deletePost = (postId) => dispatch => (
+    ReadableAPI.deletePost(postId)
+        .then(() =>
+            dispatch(createDeletePost(postId)))
+);
+
+export const deleteComment = (postId, commentId) => dispatch => (
+    ReadableAPI.deleteComment(commentId)
+        .then(() =>
+            dispatch(createDeleteComment(postId, commentId)))
+);
+

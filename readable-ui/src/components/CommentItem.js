@@ -12,7 +12,11 @@ import './CommentItem.css';
 class CommentItem extends Component {
 
     static propTypes = {
-        comment: PropTypes.object.isRequired
+        comment: PropTypes.object.isRequired,
+
+        /** Handlers: When the user clicks to edit/delete the comment. */
+        onEditComment: PropTypes.func,
+        onDeleteComment: PropTypes.func
     }
 
     _onVoteUp() {
@@ -32,8 +36,12 @@ class CommentItem extends Component {
     }
 
     render() {
-        const { comment } = this.props;
+        const { comment, onEditComment, onDeleteComment } = this.props;
+
+        const commentPoints = comment.voteScore +
+            ((comment.voteScore === 1) ? ' point' : ' points');
         const commentTime = formatTimestamp(comment.timestamp);
+        const commentBy = `posted ${commentTime} by ${comment.author}`;
 
         return (
             <div className="rd-comment-item">
@@ -43,7 +51,15 @@ class CommentItem extends Component {
                 <div>
                     <div className="rd-comment-body">{comment.body}</div>
                     <div className="rd-comment-meta">
-                        {comment.voteScore} points, posted {commentTime} by {comment.author}
+                        {commentPoints}, {commentBy} [
+                        <span
+                            className="rd-comment-meta-clickable"
+                            onClick={() => { if (onEditComment) { onEditComment(); }}} >
+                            edit</span>,&nbsp;
+                        <span
+                            className="rd-comment-meta-clickable"
+                            onClick={() => { if (onDeleteComment) { onDeleteComment(); }}} >
+                            delete</span>]
                     </div>
                 </div>
             </div>

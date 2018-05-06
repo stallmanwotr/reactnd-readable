@@ -1,9 +1,12 @@
 
 .rd-post-page {
+    margin: 15px 5%;
+}
+
+.rd-post-page-content {
     background: #ffffff;
     box-shadow: 0px 0px 3px 3px rgba(220,220,220,0.4);
-    margin: 15px 5%;
-    padding: 4px 10px;
+    padding: 15px 10px;
 }
 
 .rd-post-header {
@@ -29,7 +32,7 @@
 .rd-post-comments-bar {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 .rd-post-comments-header {

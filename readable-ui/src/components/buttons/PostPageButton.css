@@ -16,6 +16,11 @@
     box-shadow: 0px 0px 3px 3px rgba(220,220,220,0.4);
 }
 
+.rd-post-page-button-delete:hover {
+    background: #d32828;
+}
+
 .rd-post-page-button-text {
    padding: 0 2px 0 8px;
 }
+

@@ -1,7 +1,11 @@
 import { combineReducers } from 'redux';
 import {
     ADD_POST,
+    ADD_COMMENT,
+    DELETE_COMMENT,
+    DELETE_POST,
     EDIT_POST,
+    EDIT_COMMENT,
     RECEIVE_CATEGORIES,
     RECEIVE_CATEGORY_POSTS,
     RECEIVE_POST_AND_COMMENTS,
@@ -127,7 +131,8 @@ function categoryReducer(state = {}, action) {
  * corresponds to the 'post' pages.
  */
 function postReducer(state = {}, action) {
-    let postId, postInfo, commentId;
+    let postId, postInfo;
+    let commentId, commentInfo;
     let option, voteDelta, newScore;
 
     switch (action.type) {
@@ -190,6 +195,51 @@ function postReducer(state = {}, action) {
             [postId]: {
                 ...state[postId],
                 post: postInfo
+            }
+        };
+
+    case ADD_COMMENT:
+    case EDIT_COMMENT:
+        ({ commentInfo } = action);
+        commentId = commentInfo.id;
+        postId = commentInfo.parentId;
+        return {
+            ...state,
+            [postId]: {
+                ...state[postId],
+                comments: {
+                    ...state[postId].comments,
+                    [commentId]: commentInfo
+                }
+            }
+        };
+
+    case DELETE_POST:
+        ({ postId } = action);
+        return {
+            ...state,
+            [postId]: {
+                ...state[postId],
+                post: {
+                    ...state[postId].post,
+                    deleted: true
+                }
+            }
+        };
+
+    case DELETE_COMMENT:
+        ({ postId, commentId } = action);
+        return {
+            ...state,
+            [postId]: {
+                ...state[postId],
+                comments: {
+                    ...state[postId].comments,
+                    [commentId]: {
+                        ...state[postId].comments[commentId],
+                        deleted: true
+                    }
+                }
             }
         };
 

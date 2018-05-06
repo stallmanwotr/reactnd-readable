@@ -30,7 +30,7 @@
     margin: 10px;
 }
 
-.rd-add-post-header {
+.rd-modal-header {
     font-style: italic;
 }
 
@@ -58,19 +58,19 @@
     background: orange;
 }
 
-.rd-add-post-subheader {
+.rd-modal-subheader {
     font-style: italic;
     margin: 20px 0 0 0;
 }
 
-.rd-add-post-input {
+.rd-modal-input {
     font-family: inherit;
     font-size: 80%;
     padding: 10px 15px;
     width: 90%;
 }
 
-.rd-add-post-textarea {
+.rd-modal-textarea {
     resize: none;
 }
 

@@ -15,7 +15,7 @@ export const formatTimestamp = (timestamp) => {
         return `${month} ${date.getFullYear()}`;
     }
     if (date.getMonth() !== now.getMonth()) {
-        return `${month}`;
+        return `in ${month}`;
     }
 
     const days = now.getDate() - date.getDate();
