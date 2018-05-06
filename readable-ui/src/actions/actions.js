@@ -101,8 +101,12 @@ export const voteOnPost = (postId, option, category) => dispatch => (
 );
 
 export const addPost = (postInfo) => dispatch => (
+    // first, we add the post using the postInfo. then we fetch to get the post,
+    // as this brings in other fields such as voteScore, commentCount.
     ReadableAPI.addPost(postInfo)
         .then(() =>
-            dispatch(createAddPost(postInfo)))
+            ReadableAPI.getPost(postInfo.id)
+                .then(responsePostInfo =>
+                    dispatch(createAddPost(responsePostInfo))))
 );
 

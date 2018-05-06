@@ -23,6 +23,7 @@ class AddPostButton extends Component {
                 <div className="rd-header-button">
                     <Icon icon={ic_add} size={28}/>
                 </div>
+                <div className="rd-header-button-text">Add Post</div>
             </div>
         );
     };

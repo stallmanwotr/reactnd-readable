@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import {
+    ADD_POST,
     RECEIVE_CATEGORIES,
     RECEIVE_CATEGORY_POSTS,
     RECEIVE_POST_AND_COMMENTS,
@@ -65,11 +66,12 @@ function allReducer(state = initialAllState, action) {
  * sets the user posts for each category.
  */
 function categoryReducer(state = {}, action) {
-    const { category } = action;
+    let category, postId, posts;
+    let option, postInfo;
 
     switch (action.type) {
     case RECEIVE_CATEGORY_POSTS:
-        const { posts } = action;
+        ({ category, posts } = action);
         return {
             ...state,
             [category]: {
@@ -78,7 +80,7 @@ function categoryReducer(state = {}, action) {
             }
         };
     case VOTE_ON_POST:
-        const { postId, option } = action;
+        ({ postId, option, category } = action);
         if (!state[category] || !state[category].posts[postId]) {
             return state;
         }
@@ -97,6 +99,20 @@ function categoryReducer(state = {}, action) {
                 }
             }
         };
+    case ADD_POST:
+        ({ postInfo } = action);
+        ({ category, postId } = postInfo);
+        return {
+            ...state,
+            [category]: {
+                ...state[category],
+                posts: {
+                    ...state[category].posts,
+                    [postId]: postInfo
+                }
+            }
+        };
+
     default:
         return state;
     }
