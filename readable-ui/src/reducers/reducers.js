@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import {
     ADD_POST,
+    EDIT_POST,
     RECEIVE_CATEGORIES,
     RECEIVE_CATEGORY_POSTS,
     RECEIVE_POST_AND_COMMENTS,
@@ -79,6 +80,7 @@ function categoryReducer(state = {}, action) {
                 posts: _reduceToObjectById(posts)
             }
         };
+
     case VOTE_ON_POST:
         ({ postId, option, category } = action);
         if (!state[category] || !state[category].posts[postId]) {
@@ -99,9 +101,11 @@ function categoryReducer(state = {}, action) {
                 }
             }
         };
+
     case ADD_POST:
         ({ postInfo } = action);
-        ({ category, postId } = postInfo);
+        postId = postInfo.id;
+        category = postInfo.category;
         return {
             ...state,
             [category]: {
@@ -119,12 +123,12 @@ function categoryReducer(state = {}, action) {
 }
 
 /**
- * The 'postReducer' handles individual posts and their comments. It basically
+ * The 'postReducer' handles individual posts and their comments. It loosely
  * corresponds to the 'post' pages.
  */
 function postReducer(state = {}, action) {
-    const { option, postId } = action;
-    let voteDelta, newScore;
+    let postId, postInfo, commentId;
+    let option, voteDelta, newScore;
 
     switch (action.type) {
     case RECEIVE_POST_AND_COMMENTS:
@@ -138,7 +142,9 @@ function postReducer(state = {}, action) {
                 comments: _reduceToObjectById(comments)
             }
         };
+
     case VOTE_ON_POST:
+        ({ postId, option } = action);
         if (!state[postId] || !state[postId].post) {
             return state;
         }
@@ -154,8 +160,9 @@ function postReducer(state = {}, action) {
                 }
             }
         };
+
     case VOTE_ON_COMMENT:
-        const { commentId } = action;
+        ({ commentId, option, postId } = action);
         if (!state[postId] || !state[postId].comments[commentId]) {
             return state;
         }
@@ -174,6 +181,18 @@ function postReducer(state = {}, action) {
                 }
             }
         };
+
+    case EDIT_POST:
+        ({ postInfo } = action);
+        postId = postInfo.id;
+        return {
+            ...state,
+            [postId]: {
+                ...state[postId],
+                post: postInfo
+            }
+        };
+
     default:
         return state;
     }

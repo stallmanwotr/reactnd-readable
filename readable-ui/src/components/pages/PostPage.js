@@ -3,7 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPostAndComments } from '../../actions/actions';
 import CommentItem from '../CommentItem';
-import UpDownButtons from '../UpDownButtons';
+import UpDownButtons from '../buttons/UpDownButtons';
+import AddCommentButton from '../buttons/AddCommentButton';
+import EditPostButton from '../buttons/EditPostButton';
+import AddPostDialog from '../dialogs/AddPostDialog';
 import { voteOnPost, UP_VOTE, DOWN_VOTE } from '../../actions/actions';
 import { formatTimestamp } from '../../utils/Utils';
 import './PostPage.css';
@@ -35,7 +38,8 @@ class PostPage extends Component {
 
     state = {
         post: null,
-        comments: []
+        comments: [],
+        showEditPostDialog: false
     };
             
     componentDidMount() {
@@ -60,11 +64,28 @@ class PostPage extends Component {
         dispatch(voteOnPost(post.id, DOWN_VOTE, post.category));
     }
 
+    _onAddCommentButton() {
+        console.info('Launching: Add Comment Dialog');
+        // this.openAddPostDialog();
+    }
+
+    _openEditPostDialog() {
+        console.info('Launching: Edit Post Dialog');
+        this.setState(() => ({ showEditPostDialog: true }));
+    }
+
+    _closeEditPostDialog() {
+        console.info('Closing: Edit Post Dialog');
+        this.setState(() => ({ showEditPostDialog: false }));
+    }
+
     render() {
         const { post, comments } = this.props;
         if (!post || post.deleted) {
             return null;
         }
+        const { showEditPostDialog } = this.state;
+
         const postTime = formatTimestamp(post.timestamp);
         const sortedComments = Object.values(comments).sort(
             (a, b) => (a.timestamp - b.timestamp));
@@ -85,12 +106,28 @@ class PostPage extends Component {
                 <div className="rd-post-body">
                     <div>{post.body}</div>
                 </div>
-                <div className="rd-post-comments">
+                <div className="rd-post-comments-bar">
                     <div className="rd-post-comments-header">Comments:</div>
+                    <div className="rd-post-buttons">
+                        <AddCommentButton
+                            onAddComment={this._onAddCommentButton.bind(this)} />
+                        <EditPostButton
+                            onEditPost={this._openEditPostDialog.bind(this)} />
+                    </div>
+                </div>
+                <div className="rd-post-comments">
                     { sortedComments.map((comment) => (
                         <CommentItem key={comment.id} comment={comment} />
                     ))}
                 </div>
+
+                <AddPostDialog
+                    postToEdit={post}
+                    category={post.category}
+                    isModalOpen={showEditPostDialog}
+                    onAddButton={this._closeEditPostDialog.bind(this)}
+                    onCancelButton={this._closeEditPostDialog.bind(this)}
+                />
             </div>
         );
     };

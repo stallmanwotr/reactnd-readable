@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { voteOnPost, UP_VOTE, DOWN_VOTE } from '../actions/actions';
-import UpDownButtons from './UpDownButtons';
+import UpDownButtons from './buttons/UpDownButtons';
 import { formatTimestamp } from '../utils/Utils';
 import './PostSummaryItem.css';
 

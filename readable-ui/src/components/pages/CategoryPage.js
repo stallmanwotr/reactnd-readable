@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCategoryPosts } from '../../actions/actions';
-import AddPostButton from '../AddPostButton';
+import AddPostButton from '../buttons/AddPostButton';
 import AddPostDialog from '../dialogs/AddPostDialog';
 import PostSummaryList from '../PostSummaryList';
 import './CategoryPage.css';

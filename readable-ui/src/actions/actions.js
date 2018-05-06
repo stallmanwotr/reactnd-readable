@@ -7,54 +7,60 @@ export const DOWN_VOTE = 'downVote';
 
 /** Action Types */
 
+export const ADD_POST = 'ADD_POST';
+export const EDIT_POST = 'EDIT_POST';
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS';
 export const RECEIVE_POST_AND_COMMENTS = 'RECEIVE_POST_AND_COMMENTS';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 export const VOTE_ON_COMMENT = 'VOTE_ON_COMMENT';
 export const VOTE_ON_POST = 'VOTE_ON_POST';
-export const ADD_POST = 'ADD_POST';
 
 /** Action Creators */
 
-export const receiveCategories = categories => ({
+const receiveCategories = categories => ({
     type: RECEIVE_CATEGORIES,
     categories
 });
 
-export const receiveCategoryPosts = (category, posts) => ({
+const receiveCategoryPosts = (category, posts) => ({
     type: RECEIVE_CATEGORY_POSTS,
     category,
     posts
 });
 
-export const receivePostAndComments = (post, comments) => ({
+const receivePostAndComments = (post, comments) => ({
     type: RECEIVE_POST_AND_COMMENTS,
     post,
     comments
 });
 
-export const receivePosts = posts => ({
+const receivePosts = posts => ({
     type: RECEIVE_POSTS,
     posts
 });
 
-export const createVoteOnComment = (commentId, option, postId) => ({
+const createVoteOnComment = (commentId, option, postId) => ({
     type: VOTE_ON_COMMENT,
     commentId,
     option,
     postId
 });
 
-export const createVoteOnPost = (postId, option, category) => ({
+const createVoteOnPost = (postId, option, category) => ({
     type: VOTE_ON_POST,
     postId,
     option,
     category
 });
 
-export const createAddPost = (postInfo) => ({
+const createAddPost = (postInfo) => ({
     type: ADD_POST,
+    postInfo
+});
+
+const createEditPost = (postInfo) => ({
+    type: EDIT_POST,
     postInfo
 });
 
@@ -110,3 +116,10 @@ export const addPost = (postInfo) => dispatch => (
                     dispatch(createAddPost(responsePostInfo))))
 );
 
+export const editPost = (postId, title, body) => dispatch => (
+    ReadableAPI.editPost(postId, title, body)
+        .then(() =>
+            ReadableAPI.getPost(postId)
+                .then(responsePostInfo =>
+                    dispatch(createEditPost(responsePostInfo))))
+);

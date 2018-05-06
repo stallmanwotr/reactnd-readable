@@ -26,4 +26,18 @@
     padding: 15px;
 }
 
+.rd-post-comments-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
+.rd-post-comments-header {
+    font-style: italic;
+}
+
+.rd-post-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
