@@ -50,10 +50,14 @@ Use a browser to navigate to here:
   http://localhost:8080/react
 </pre>
 
-  ~~> Needs more investigation!
+  Needs more investigation!
 
-* I could (should) have improved the buttons (Edit Post, Delete Post) on the post page,
-  so they are at the top-right, similar to the 'Sort by' menu.
+* Wasn't sure how best to organise the reducers. I went with following a similar
+  structure to the REST api, with separate 'all' and 'category' lists of posts.
+  But this lead to a bit of duplication in each reducer to handle actions.
+
+* Could (should) have improved the buttons (Edit Post, Delete Post) on the post page,
+  so they are at the top-right.
 
 ## Screenshot
 
