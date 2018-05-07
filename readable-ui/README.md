@@ -50,7 +50,7 @@ Use a browser to navigate to here:
   http://localhost:8080/react
 </pre>
 
-  Needs more investigation!
+...Needs more investigation!
 
 * Wasn't sure how best to organise the reducers. I went with following a similar
   structure to the REST api, with separate 'all' and 'category' lists of posts.
