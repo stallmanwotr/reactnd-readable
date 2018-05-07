@@ -9,25 +9,25 @@ the npm (node package manager) command.
 The backend server should also be running (_../api-server_). If successful you should be able
 to see the REST interface detailed here:
 
-<div>
+<pre>
     http://localhost:3001/
-</div>
-
-<div style="padding-left: 20px">
-    http://localhost:3001/
-</div>
+</pre>
 
 Next install the application dependencies, as follows:
 
 <pre>
-$ npm install
+    $ npm install
 </pre>
 
 And finally start the UI application itself:
 
-&nbsp;&nbsp;&nbsp; $ npm start
+<pre>
+    $ npm start
+</pre>
 
 Use a browser to navigate to here:
 
-&nbsp;&nbsp;&nbsp; http://localhost:8080/
+<pre>
+    http://localhost:8080/
+</pre>
 
