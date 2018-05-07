@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../../actions/actions';
 import PostSummaryList from '../PostSummaryList';
+import PageButtonBar from '../buttons/PageButtonBar';
 import './DefaultPage.css';
 
 // Map the app state to component props.
@@ -32,6 +33,7 @@ class DefaultPage extends Component {
                     <div className="rd-category-title">
                         all
                     </div>
+                    <PageButtonBar />
                 </div>
                 <div className="rd-default-posts">
                     { (posts) && (

@@ -2,6 +2,14 @@
 .rbl-post-summary-list {
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
+
+.rbl-post-summary-items {
+    margin: 0;
+    padding: 0;
     list-style-type: none;
     display: flex;
     flex-direction: column;

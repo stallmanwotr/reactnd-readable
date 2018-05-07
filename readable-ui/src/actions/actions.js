@@ -20,6 +20,8 @@ export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 export const VOTE_ON_COMMENT = 'VOTE_ON_COMMENT';
 export const VOTE_ON_POST = 'VOTE_ON_POST';
 
+export const SORT_POSTS_BY = 'SORT_POSTS_BY';
+
 /** Action Creators */
 
 const receiveCategories = categories => ({
@@ -87,6 +89,11 @@ const createDeleteComment = (postId, commentId) => ({
     type: DELETE_COMMENT,
     postId,
     commentId
+});
+
+export const sortPostsBy = (sortOrder) => ({
+    type: SORT_POSTS_BY,
+    sortOrder
 });
 
 /** Thunks */

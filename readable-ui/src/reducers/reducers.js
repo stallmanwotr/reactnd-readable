@@ -10,10 +10,12 @@ import {
     RECEIVE_CATEGORY_POSTS,
     RECEIVE_POST_AND_COMMENTS,
     RECEIVE_POSTS,
+    SORT_POSTS_BY,
     UP_VOTE,
     VOTE_ON_COMMENT,
     VOTE_ON_POST
 } from '../actions/actions';
+import * as Consts from '../utils/Consts';
 
 /**
  * Reduces an array of objects, to a single object/map indexed by 'id' value.
@@ -248,8 +250,32 @@ function postReducer(state = {}, action) {
     }
 }
 
+const initialSettingsState = {
+    sortPostsBy: Consts.SORT_BY_DATE
+};
+
+/**
+ * This reducer keeps track of general application settings, such as the
+ * prefered sort order.
+ */
+function settingsReducer(state = initialSettingsState, action) {
+    switch (action.type) {
+    case SORT_POSTS_BY:
+        const { sortOrder } = action;
+        return {
+            ...state,
+            sortPostsBy: sortOrder
+        };
+
+    default:
+        return state;
+    }
+}
+
+
 export default combineReducers({
     all: allReducer,
     categories: categoryReducer,
-    posts: postReducer
+    posts: postReducer,
+    settings: settingsReducer
 });

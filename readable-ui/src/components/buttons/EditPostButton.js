@@ -27,7 +27,6 @@ class EditPostButton extends Component {
             </div>
         );
     };
-    
 }
 
 export default EditPostButton;
