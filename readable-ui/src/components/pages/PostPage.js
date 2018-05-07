@@ -127,13 +127,15 @@ class PostPage extends Component {
         const { category } = post;
         const { showAddCommentDialog, showEditPostDialog, commentToEdit } = this.state;
 
-        const postPoints = post.voteScore + ((post.voteScore === 1) ? ' point' : ' points');
-        const postTime = formatTimestamp(post.timestamp);
-        const postedBy = `posted ${postTime} by ${post.author}`;
-
         const sortCompare = (a, b) => (a.timestamp - b.timestamp);
         const sortedComments = Object.values(comments).sort(sortCompare)
             .filter((c) => c.deleted === false);
+        const commentCount = sortedComments.length;
+
+        const postPoints = post.voteScore + ((post.voteScore === 1) ? ' point' : ' points');
+        const postComments = commentCount + ((commentCount === 1) ? ' comment' : ' comments');
+        const postTime = formatTimestamp(post.timestamp);
+        const postedBy = `posted ${postTime} by ${post.author}`;
 
         return (
             <div className="rd-post-page">
@@ -150,7 +152,7 @@ class PostPage extends Component {
                         <div className="rd-post-header-lines">
                             <div className="rd-post-header-line1">{post.title}</div>
                             <div className="rd-post-header-line2">
-                                {postPoints}, {postedBy}
+                                {postPoints} / {postComments} / {postedBy}
                             </div>
                         </div>
                     </div>

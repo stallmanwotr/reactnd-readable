@@ -146,7 +146,7 @@ function categoryReducer(state = {}, action) {
         ({ postInfo } = action);
         ({ category } = postInfo);
         postId = postInfo.id;
-        if (!state[category] || !state[category].posts[postId]) {
+        if (!state[category] || !state[category].posts) {
             return state;
         }
         return {

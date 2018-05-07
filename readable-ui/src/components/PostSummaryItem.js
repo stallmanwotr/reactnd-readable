@@ -41,6 +41,7 @@ class PostSummaryItem extends Component {
         const postTo = `/${post.category}/${post.id}`;
         const postTime = formatTimestamp(post.timestamp);
         const postedBy = `posted ${postTime} by ${post.author}`;
+        const postComments = post.commentCount + ((post.commentCount === 1) ? ' comment' : ' comments');
 
         return (
             <div className="rd-post-summary-item">
@@ -52,10 +53,12 @@ class PostSummaryItem extends Component {
                         <Link to={postTo}>{post.title}</Link>
                     </div>
                     <div className="rd-post-2nd-line">
-                        <div>{postPoints}</div>
-                        <Link to={'/' + post.category}>-- {post.category} --</Link>
-                        <div>{post.commentCount} comments</div>
-                        <span>{postedBy}</span> &nbsp;&nbsp;[
+                        <span>
+                            {postPoints} / {postComments} in
+                            <Link to={'/' + post.category}>-- {post.category} --</Link>
+                            / {postedBy}
+                        </span>
+                        &nbsp;[
                         <span
                             className="rd-post-meta-clickable"
                             onClick={() => { if (onEditPost) { onEditPost(); }}} >

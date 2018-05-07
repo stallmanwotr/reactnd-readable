@@ -51,7 +51,7 @@ class CommentItem extends Component {
                 <div>
                     <div className="rd-comment-body">{comment.body}</div>
                     <div className="rd-comment-meta">
-                        {commentPoints}, {commentBy} [
+                        {commentPoints} / {commentBy} [
                         <span
                             className="rd-comment-meta-clickable"
                             onClick={() => { if (onEditComment) { onEditComment(); }}} >
