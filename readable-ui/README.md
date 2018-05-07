@@ -58,7 +58,7 @@ Use a browser to navigate to here:
 
 ## Screenshot
 
-!(https://github.com/stallmanwotr/reactnd-readable/tree/master/readable-ui/screenshot1.png "Screenshot 1")
+![Screenshot 1](https://github.com/stallmanwotr/reactnd-readable/tree/master/readable-ui/screenshot1.png "Screenshot 1")
 
 ## License
 
