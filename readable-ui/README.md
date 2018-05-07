@@ -1,13 +1,14 @@
 
 # readable-ui
 
-Readable! is a React application that enables users to post content. These posts can
+_Readable_ is a React application that enables users to post content. These posts can
 be upvoted or downvoted, and commented on by all users.
 
 This is project 2 of the Udacity React training course.
 
 It uses [redux](https://github.com/reactjs/react-redux) to manage application state, and
-[react router](https://github.com/ReactTraining/react-router) for navigation.
+[react router](https://github.com/ReactTraining/react-router) for navigation. Both of
+which are awesome!
 
 ## Getting Started
 
@@ -38,4 +39,8 @@ Use a browser to navigate to here:
 <pre>
     http://localhost:8080/
 </pre>
+
+
+## License
+
 
