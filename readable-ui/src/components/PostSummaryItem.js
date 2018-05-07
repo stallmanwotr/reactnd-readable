@@ -15,7 +15,11 @@ class PostSummaryItem extends Component {
 
     static propTypes = {
         /** The user post to be shown. */
-        post: PropTypes.object.isRequired
+        post: PropTypes.object.isRequired,
+
+        /** Handlers: When the user clicks to edit/delete a post. */
+        onEditPost: PropTypes.func,
+        onDeletePost: PropTypes.func
     }
 
     _onVoteUp() {
@@ -31,7 +35,7 @@ class PostSummaryItem extends Component {
     }
 
     render() {
-        const { post } = this.props;
+        const { post, onEditPost, onDeletePost } = this.props;
 
         const postPoints = post.voteScore + ((post.voteScore === 1) ? ' point' : ' points');
         const postTo = `/${post.category}/${post.id}`;
@@ -51,7 +55,15 @@ class PostSummaryItem extends Component {
                         <div>{postPoints}</div>
                         <Link to={'/' + post.category}>-- {post.category} --</Link>
                         <div>{post.commentCount} comments</div>
-                        <div>{postedBy}</div>
+                        <span>{postedBy}</span> &nbsp;&nbsp;[
+                        <span
+                            className="rd-post-meta-clickable"
+                            onClick={() => { if (onEditPost) { onEditPost(); }}} >
+                            edit</span>,&nbsp;
+                        <span
+                            className="rd-post-meta-clickable"
+                            onClick={() => { if (onDeletePost) { onDeletePost(); }}} >
+                            delete</span>]
                     </div>
                 </div>
             </div>

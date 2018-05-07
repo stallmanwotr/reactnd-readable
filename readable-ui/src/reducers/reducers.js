@@ -34,20 +34,24 @@ const initialAllState = { categories: [], posts: {} };
  * typically used for the front page.
  */
 function allReducer(state = initialAllState, action) {
+    let postId, postInfo, option;
+
     switch (action.type) {
     case RECEIVE_CATEGORIES:
         return {
             ...state,
             categories: action.categories
         };
+
     case RECEIVE_POSTS:
         return {
             ...state,
             // convert the array to an object/map indexed by postId:
             posts: _reduceToObjectById(action.posts)
         };
+
     case VOTE_ON_POST:
-        const { postId, option } = action;
+        ({ postId, option } = action);
         if (!state.posts || !state.posts[postId]) {
             return state;
         }
@@ -63,6 +67,35 @@ function allReducer(state = initialAllState, action) {
                 }
             }
         };
+
+    case DELETE_POST:
+        ({ postId } = action);
+        if (!state.posts[postId]) {
+            return state;
+        }
+        return {
+            ...state,
+            posts: {
+                ...state.posts,
+                [postId]: {
+                    ...state.posts[postId],
+                    deleted: true
+                }
+            }
+        };
+
+    case ADD_POST:
+    case EDIT_POST:
+        ({ postInfo } = action);
+        postId = postInfo.id;
+        return {
+            ...state,
+            posts: {
+                ...state.posts,
+                [postId]: postInfo
+            }
+        };
+
     default:
         return state;
     }
@@ -109,9 +142,13 @@ function categoryReducer(state = {}, action) {
         };
 
     case ADD_POST:
+    case EDIT_POST:
         ({ postInfo } = action);
+        ({ category } = postInfo);
         postId = postInfo.id;
-        category = postInfo.category;
+        if (!state[category] || !state[category].posts[postId]) {
+            return state;
+        }
         return {
             ...state,
             [category]: {
@@ -122,6 +159,26 @@ function categoryReducer(state = {}, action) {
                 }
             }
         };
+
+    case DELETE_POST:
+        ({ postId, category } = action);
+        if (!state[category] || !state[category].posts[postId]) {
+            return state;
+        }
+        return {
+            ...state,
+            [category]: {
+                ...state[category],
+                posts: {
+                    ...state[category].posts,
+                    [postId]: {
+                        ...state[category].posts[postId],
+                        deleted: true
+                    }
+                }
+            }
+        };
+
 
     default:
         return state;
@@ -218,6 +275,10 @@ function postReducer(state = {}, action) {
 
     case DELETE_POST:
         ({ postId } = action);
+        // if not on the post page.
+        if (!state[postId] || state[postId].post) {
+            return state;
+        }
         return {
             ...state,
             [postId]: {

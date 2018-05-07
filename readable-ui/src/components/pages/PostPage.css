@@ -44,3 +44,9 @@
     flex-direction: row;
     justify-content: flex-end;
 }
+
+.rd-comment-item-none {
+    color: grey;
+    padding: 12px 18px;
+    font-style: italic;
+}

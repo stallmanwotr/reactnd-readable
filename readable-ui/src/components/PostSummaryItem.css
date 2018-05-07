@@ -46,3 +46,8 @@
 .rd-post-2nd-line a:visited {
     color: inherit;
 }
+
+.rd-post-meta-clickable:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

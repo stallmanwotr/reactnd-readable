@@ -52,19 +52,12 @@ class CategoryPage extends Component {
         }
     }
 
-    openAddPostDialog() {
-        console.info('openAddPostDialog ****');
+    _openAddPostDialog() {
         this.setState(() => ({ addPostDialogOpen: true }));
     }
 
-    closeAddPostDialog() {
-        console.info('closeAddPostDialog ****');
+    _closeAddPostDialog() {
         this.setState(() => ({ addPostDialogOpen: false }));
-    }
-
-    _onAddPostButton() {
-        console.info('Launching: Add Post Dialog');
-        this.openAddPostDialog();
     }
 
     render() {
@@ -79,7 +72,7 @@ class CategoryPage extends Component {
                         {category}
                     </div>
                     <AddPostButton
-                        onAddPost={this._onAddPostButton.bind(this)} />
+                        onAddPost={this._openAddPostDialog.bind(this)} />
                     <PageButtonBar />
                 </div>
                 <div className="rd-category-posts">
@@ -89,7 +82,7 @@ class CategoryPage extends Component {
                 <AddPostDialog
                     category={category}
                     isModalOpen={addPostDialogOpen}
-                    onCloseModal={this.closeAddPostDialog.bind(this)}
+                    onCloseModal={this._closeAddPostDialog.bind(this)}
                 />
             </div>
         );

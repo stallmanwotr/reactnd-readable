@@ -28,7 +28,7 @@ const mapStateToProps = (state, ownProps) => {
     let comments = {};
     if (state.posts && state.posts[postId]) {
         post = state.posts[postId].post;
-        comments = state.posts[postId].comments;
+        comments = state.posts[postId].comments || {};
     }
 
     return { post, comments };
@@ -131,8 +131,9 @@ class PostPage extends Component {
         const postTime = formatTimestamp(post.timestamp);
         const postedBy = `posted ${postTime} by ${post.author}`;
 
-        const sortedComments = Object.values(comments).sort(
-            (a, b) => (a.timestamp - b.timestamp));
+        const sortCompare = (a, b) => (a.timestamp - b.timestamp);
+        const sortedComments = Object.values(comments).sort(sortCompare)
+            .filter((c) => c.deleted === false);
 
         return (
             <div className="rd-post-page">
@@ -169,12 +170,16 @@ class PostPage extends Component {
                     <div className="rd-post-comments-header">Comments:</div>
                     <div className="rd-post-comments">
                         { sortedComments
-                            .filter((c) => c.deleted === false)
                             .map((comment) => (
                                 <CommentItem key={comment.id} comment={comment}
                                     onEditComment={() => this._openEditCommentDialog(comment)}
                                     onDeleteComment={() => this._deleteComment(comment)} />
                             ))}
+                        { (sortedComments.length === 0) && (
+                            <div className="rd-comment-item rd-comment-item-none">
+                                No comments here!
+                            </div>
+                        )}
                     </div>
                 </div>
     

@@ -80,9 +80,10 @@ const createEditComment = (commentInfo) => ({
     commentInfo
 });
 
-const createDeletePost = (postId) => ({
+const createDeletePost = (postId, category) => ({
     type: DELETE_POST,
-    postId
+    postId,
+    category
 });
 
 const createDeleteComment = (postId, commentId) => ({
@@ -176,10 +177,10 @@ export const editComment = (commentId, timestamp, body) => dispatch => (
                     dispatch(createEditComment(responseInfo))))
 );
 
-export const deletePost = (postId) => dispatch => (
+export const deletePost = (postId, category) => dispatch => (
     ReadableAPI.deletePost(postId)
         .then(() =>
-            dispatch(createDeletePost(postId)))
+            dispatch(createDeletePost(postId, category)))
 );
 
 export const deleteComment = (postId, commentId) => dispatch => (

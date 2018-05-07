@@ -4,7 +4,16 @@ import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import uuidv1 from 'uuid/v1';
 import { addPost, editPost } from '../../actions/actions';
+import CategoryMenu from '../buttons/CategoryMenu';
 import './ModalDialog.css';
+
+// Map the app state to component props.
+const mapStateToProps = (state) => {
+    const { categories } = state.all;
+    return {
+        categories
+    };
+};
 
 /**
  * (Dialog Box)
@@ -13,7 +22,7 @@ import './ModalDialog.css';
 class AddPostDialog extends Component {
 
     static propTypes = {
-        category: PropTypes.string.isRequired,
+        category: PropTypes.string,
 
         /** The user post to be shown. */
         isModalOpen: PropTypes.bool.isRequired,
@@ -26,7 +35,21 @@ class AddPostDialog extends Component {
     }
 
     state = {
-        textAreaValue: ''
+        textAreaValue: '',
+        selectedCategory: ''
+    };
+
+    componentWillReceiveProps(nextProps) {
+        const { categories, category } = nextProps;
+
+        let selectedCategory = category;
+        if (!category && categories.length > 0) {
+            selectedCategory = categories[0].name;
+        }
+
+        this.setState({
+            selectedCategory
+        });
     }
 
     componentWillMount() {
@@ -46,6 +69,7 @@ class AddPostDialog extends Component {
 
     _onAddButton() {
         const { category, dispatch } = this.props;
+        const { selectedCategory } = this.state;
         const author = this.inputAuthor.value;;
         const title = this.inputTitle.value;
         const body = this.state.textAreaValue;
@@ -56,7 +80,7 @@ class AddPostDialog extends Component {
             title,
             body,
             author,
-            category
+            category: (category || selectedCategory)
         };
 
         console.info('Add post: ' + JSON.stringify(postInfo));
@@ -68,16 +92,24 @@ class AddPostDialog extends Component {
         const title = this.inputTitle.value;
         const body = this.state.textAreaValue;
         
-        console.info('Edit post: ' + postToEdit.id);
         dispatch(editPost(postToEdit.id, title, body));
     }
 
     _handleTextAreaChange(event) {
-        this.setState({textAreaValue: event.target.value});
+        this.setState({
+            textAreaValue: event.target.value
+        });
+    }
+
+    _onCategorySelected(category) {
+        this.setState({
+            selectedCategory: category
+        });
     }
 
     render() {
-        const { isModalOpen, onCloseModal, postToEdit } = this.props;
+        const { category, postToEdit, isModalOpen, onCloseModal } = this.props;
+        const { selectedCategory } = this.state;
         const isEditMode = (typeof postToEdit === 'object');
 
         return (
@@ -92,6 +124,17 @@ class AddPostDialog extends Component {
                     <div className="rd-modal-header">
                         {(postToEdit) ? 'Edit Post' : 'Add a Post'}
                     </div>
+
+                    { (typeof category !== 'undefined') && (
+                        <div className="rd-modal-subheader">Category: {category}</div>
+                    )}
+                    { (typeof category === 'undefined') && (
+                        <div className="rd-modal-subheader">
+                            <CategoryMenu
+                                selectedCategory={selectedCategory}
+                                onCategorySelected={this._onCategorySelected.bind(this)} />
+                        </div>
+                    )}
 
                     <div className="rd-modal-subheader">Author</div>
                     <div className="rd-add-post-author">
@@ -143,4 +186,4 @@ class AddPostDialog extends Component {
     };
 }
 
-export default connect()(AddPostDialog);
+export default connect(mapStateToProps)(AddPostDialog);
