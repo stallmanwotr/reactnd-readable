@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCategoryPosts } from '../../actions/actions';
 import AddPostButton from '../buttons/AddPostButton';
+import PageButtonBar from '../buttons/PageButtonBar';
 import AddPostDialog from '../dialogs/AddPostDialog';
 import PostSummaryList from '../PostSummaryList';
 import './CategoryPage.css';
@@ -79,6 +80,7 @@ class CategoryPage extends Component {
                     </div>
                     <AddPostButton
                         onAddPost={this._onAddPostButton.bind(this)} />
+                    <PageButtonBar />
                 </div>
                 <div className="rd-category-posts">
                     <PostSummaryList posts={posts} />
