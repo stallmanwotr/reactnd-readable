@@ -41,6 +41,26 @@ Use a browser to navigate to here:
 </pre>
 
 
+## Notes:
+
+* Users can only post withing a category page. This is intendend so that the user sees
+  the context of the category and the other posts within it.
+
+* Don't seem to be able to go directly to a routed page, only the _all_ page. So can't
+  go directly to a category. E.g., if copy this into another browser tab:
+
+<pre>
+  http://localhost:8080/react
+<pre>
+
+* I could have improved the buttons (Edit Post, Delete Post) on the post page, so they
+  are at the top-right, similar to the 'Sort by' menu.
+
+## Screenshot
+
+!(https://github.com/stallmanwotr/reactnd-readable/tree/master/readable-ui/screenshot1.png "Screenshot 1")
+
 ## License
 
 MIT
+
