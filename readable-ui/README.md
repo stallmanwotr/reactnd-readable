@@ -51,7 +51,7 @@ Use a browser to navigate to here:
 
 <pre>
   http://localhost:8080/react
-<pre>
+</pre>
 
 * I could have improved the buttons (Edit Post, Delete Post) on the post page, so they
   are at the top-right, similar to the 'Sort by' menu.
