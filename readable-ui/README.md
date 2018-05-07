@@ -46,11 +46,11 @@ Use a browser to navigate to here:
 * Don't seem to be able to go directly to a routed page, only the _all_ page. So can't
   go directly to a category. E.g., if copy this into another browser tab:
 
-<pre>
-  http://localhost:8080/react
-</pre>
+  <pre>
+      http://localhost:8080/react
+  </pre>
 
-...Needs more investigation!
+&nbsp;&nbsp;Needs more investigation!
 
 * Wasn't sure how best to organise the reducers. I went with following a similar
   structure to the REST api, with separate 'all' and 'category' lists of posts.
