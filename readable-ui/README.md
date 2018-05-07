@@ -43,4 +43,4 @@ Use a browser to navigate to here:
 
 ## License
 
-
+MIT
