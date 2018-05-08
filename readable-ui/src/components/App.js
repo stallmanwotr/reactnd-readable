@@ -8,18 +8,28 @@ import ReadableHeader from './ReadableHeader';
 class App extends Component {
 
     render() {
+        console.info('App.render ****** ');
         return (
             <div>
                 <ReadableHeader />
-                <Route exact path="/" render={() => (
-                    <DefaultPage />
-                )}/>
-                <Route exact path="/:category" render={({ match }) => (
-                    <CategoryPage category={match.params.category} />
-                )}/>
-                <Route exact path="/:category/:postId" render={({ match }) => (
-                    <PostPage postId={match.params.postId} />
-                )}/>
+                <Route exact path="/" render={() => {
+                    console.info('ROUTE /');
+                    return (
+                        <DefaultPage />
+                    );
+                }}/>
+                <Route exact path="/:category" render={({ match }) => {
+                    console.info('ROUTE /:category\n' + JSON.stringify(match.params));
+                    return (
+                        <CategoryPage category={match.params.category} />
+                    );
+                }}/>
+                <Route exact path="/:category/:postId" render={({ match }) => {
+                    console.info('ROUTE /:category/:postId\n' + JSON.stringify(match.params));
+                    return (
+                        <PostPage postId={match.params.postId} />
+                    );
+                }}/>
             </div>
         );
     };

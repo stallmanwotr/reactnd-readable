@@ -24,7 +24,7 @@ import './PostPage.css';
 const mapStateToProps = (state, ownProps) => {
     const { postId } = ownProps;
 
-    let post = null;
+    let post = undefined;
     let comments = {};
     if (state.posts && state.posts[postId]) {
         post = state.posts[postId].post;
@@ -121,6 +121,8 @@ class PostPage extends Component {
 
     render() {
         const { post, comments } = this.props;
+        console.info('PostPage.render: ' + ((post) ? post.id : 'undefined'));
+
         if (!post || post.deleted) {
             return null;
         }

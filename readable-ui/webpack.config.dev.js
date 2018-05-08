@@ -7,8 +7,13 @@ module.exports = merge(common, {
     devtool: 'inline-source-map',
 
     devServer: {
-        hot: true,
-        contentBase: path.resolve(__dirname, 'dist')
+        contentBase: '/',
+        historyApiFallback: {
+            index: '/',
+            verbose: true,
+            disableDotRule: true
+        },
+        hot: true
     },
 
     plugins: [
