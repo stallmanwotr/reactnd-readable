@@ -116,7 +116,8 @@ export const fetchPostAndComments = (postId) => dispatch => (
         .then(post =>
             ReadableAPI.getPostComments(postId)
                 .then(comments =>
-                    dispatch(receivePostAndComments(post, comments))))
+                    dispatch(receivePostAndComments(post, comments)))
+        )
 );
 
 export const fetchCategoryPosts = (category) => dispatch => (

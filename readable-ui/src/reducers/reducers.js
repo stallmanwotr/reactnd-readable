@@ -18,9 +18,12 @@ import {
 import * as Consts from '../utils/Consts';
 
 /**
- * Reduces an array of objects, to a single object/map indexed by 'id' value.
+ * Reduces an array of objects, to a map object indexed by 'id' field.
  */
 function _reduceToObjectById(values) {
+    if (!Array.isArray(values)) {
+        return {};
+    }
     return values.reduce((obj, item) => {
         obj[item.id] = item;
         return obj;
@@ -197,6 +200,10 @@ function postReducer(state = {}, action) {
     switch (action.type) {
     case RECEIVE_POST_AND_COMMENTS:
         const { post, comments } = action;
+        // if the fetch failed post will be undefined.
+        if (!post || !post.id) {
+            return state;
+        }
         return {
             ...state,
             [post.id]: {

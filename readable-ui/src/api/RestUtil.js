@@ -21,7 +21,7 @@ function getToken() {
 function reportError(detail) {
     const text = 'Error contacting the Readable service.';
     console.error(`${text}\n${detail}`);
-    alert(`${text}`);
+    //alert(`${text}`);
 };
 
 function handleResponseJson(response) {

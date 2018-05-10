@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCategoryPosts } from '../../actions/actions';
+import NotFoundPage from './NotFoundPage';
 import AddPostButton from '../buttons/AddPostButton';
 import PageButtonBar from '../buttons/PageButtonBar';
 import AddPostDialog from '../dialogs/AddPostDialog';
@@ -9,13 +10,13 @@ import PostSummaryList from '../PostSummaryList';
 import './CategoryPage.css';
 
 // Map the app state to component props.
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ({ all, categories }, ownProps) => {
     const { category } = ownProps;
 
-    const posts = (state.categories[category])
-        ? state.categories[category].posts : {};
+    const posts = (categories[category]) ? categories[category].posts : {};
+    const allCategories = all.categories.map((o) => o.name);
 
-    return { posts };
+    return { posts, allCategories };
 };
 
 /**
@@ -61,10 +62,17 @@ class CategoryPage extends Component {
     }
 
     render() {
-        const { category, posts } = this.props;
+        const { category, posts, allCategories } = this.props;
         const { addPostDialogOpen } = this.state;
-        console.info('Render category: ' + category);
+        console.info(`Render category: ${category}`);
+        console.info(`All categories: ${JSON.stringify(allCategories)}`);
 
+        // if the category is not one of the known ones.
+        if (!category || (allCategories.length > 0 && !allCategories.includes(category))) {
+            return (
+                <NotFoundPage />
+            );
+        }
         return (
             <div className="rd-category-page">
                 <div className="rd-category-header">

@@ -1,13 +1,31 @@
 
 .rd-not-found-page {
+    display: flex;
+    flex-direction: row;
     background: #fefefe;
     box-shadow: 0px 0px 3px 3px rgba(220,220,220,0.4);
-    padding: 12px 18px;
+    padding: 25px;
     margin: 15px 5%;
+}
+
+.rd-not-found-icon {
+    margin-top: 8px;
+}
+
+.rd-not-found-content {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 20px 20px;
 }
 
 .rd-not-found-header {
     font-size: 110%;
     font-style: italic;
+    margin: 5px;
 }
+
+.rd-not-found-body {
+    margin: 5px;
+}
+
 

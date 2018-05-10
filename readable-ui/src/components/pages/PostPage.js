@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import NotFoundPage from './NotFoundPage';
 import {
     fetchPostAndComments,
     deleteComment,
@@ -120,11 +121,14 @@ class PostPage extends Component {
     }
 
     render() {
-        const { post, comments } = this.props;
-        console.info('PostPage.render: ' + ((post) ? post.id : 'undefined'));
+        const { postId, post, comments } = this.props;
+        console.info(`PostPage.render: ${postId} ${typeof(post)}`);
 
+        // if the fetch failed for the requested postId.
         if (!post || post.deleted) {
-            return null;
+            return (
+                <NotFoundPage />
+            );
         }
         const { category } = post;
         const { showAddCommentDialog, showEditPostDialog, commentToEdit } = this.state;
