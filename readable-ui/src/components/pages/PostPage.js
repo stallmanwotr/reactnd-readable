@@ -17,16 +17,15 @@ import { formatTimestamp } from '../../utils/Utils';
 import './PostPage.css';
 
 // Map the app state to component props.
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = ({ posts }, ownProps) => {
     const { postId } = ownProps;
 
     let post = undefined;
     let comments = {};
-    if (state.posts && state.posts[postId]) {
-        post = state.posts[postId].post;
-        comments = state.posts[postId].comments || {};
+    if (posts && posts[postId]) {
+        post = posts[postId].post;
+        comments = posts[postId].comments || {};
     }
-
     return { post, comments };
 };
 

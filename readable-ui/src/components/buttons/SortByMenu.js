@@ -5,8 +5,8 @@ import * as Consts from '../../utils/Consts';
 import './PageButton.css';
 
 // Map the app state to component props.
-const mapStateToProps = (state) => {
-    const { sortPostsBy } = state.settings;
+const mapStateToProps = ({ settings }) => {
+    const { sortPostsBy } = settings;
     return {
         sortType: sortPostsBy
     };

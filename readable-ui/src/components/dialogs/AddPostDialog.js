@@ -8,8 +8,8 @@ import CategoryMenu from '../buttons/CategoryMenu';
 import './ModalDialog.css';
 
 // Map the app state to component props.
-const mapStateToProps = (state) => {
-    const { categories } = state.all;
+const mapStateToProps = ({ all }) => {
+    const { categories } = all;
     return {
         categories
     };

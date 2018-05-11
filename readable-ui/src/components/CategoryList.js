@@ -5,8 +5,8 @@ import { fetchCategories } from '../actions/CategoryActions';
 import './CategoryList.css';
 
 // Redux: Map the app state to component props.
-const mapStateToProps = (state) => {
-    const { categories } = state.all;
+const mapStateToProps = ({ all }) => {
+    const { categories } = all;
     return {
         categories
     };

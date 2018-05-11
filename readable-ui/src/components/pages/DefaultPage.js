@@ -8,8 +8,8 @@ import AddPostDialog from '../dialogs/AddPostDialog';
 import './DefaultPage.css';
 
 // Map the app state to component props.
-const mapStateToProps = (state) => {
-    const { posts } = state.all;
+const mapStateToProps = ({ all }) => {
+    const { posts } = all;
     return {
         posts
     };

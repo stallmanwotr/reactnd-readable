@@ -8,10 +8,9 @@ import { SORT_BY_DATE, SORT_BY_POINTS } from '../utils/Consts';
 import './PostSummaryList.css';
 
 // Map the app state to component props.
-const mapStateToProps = (state) => {
-    const { sortPostsBy } = state.settings;
+const mapStateToProps = ({ settings }) => {
     return {
-        sortType: sortPostsBy
+        sortType: settings.sortPostsBy
     };
 };
 
