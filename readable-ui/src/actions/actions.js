@@ -1,99 +1,78 @@
+import * as Types from './Types';
 import * as ReadableAPI from '../api/ReadableAPI';
-
-/** Constants */
-
-export const UP_VOTE = 'upVote';
-export const DOWN_VOTE = 'downVote';
-
-/** Action Types */
-
-export const ADD_POST = 'ADD_POST';
-export const ADD_COMMENT = 'ADD_COMMENT';
-export const DELETE_COMMENT = 'DELETE_COMMENT';
-export const DELETE_POST = 'DELETE_POST';
-export const EDIT_POST = 'EDIT_POST';
-export const EDIT_COMMENT = 'EDIT_COMMENT';
-export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
-export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS';
-export const RECEIVE_POST_AND_COMMENTS = 'RECEIVE_POST_AND_COMMENTS';
-export const RECEIVE_POSTS = 'RECEIVE_POSTS';
-export const VOTE_ON_COMMENT = 'VOTE_ON_COMMENT';
-export const VOTE_ON_POST = 'VOTE_ON_POST';
-
-export const SORT_POSTS_BY = 'SORT_POSTS_BY';
 
 /** Action Creators */
 
 const receiveCategories = categories => ({
-    type: RECEIVE_CATEGORIES,
+    type: Types.RECEIVE_CATEGORIES,
     categories
 });
 
 const receiveCategoryPosts = (category, posts) => ({
-    type: RECEIVE_CATEGORY_POSTS,
+    type: Types.RECEIVE_CATEGORY_POSTS,
     category,
     posts
 });
 
 const receivePostAndComments = (post, comments) => ({
-    type: RECEIVE_POST_AND_COMMENTS,
+    type: Types.RECEIVE_POST_AND_COMMENTS,
     post,
     comments
 });
 
 const receivePosts = posts => ({
-    type: RECEIVE_POSTS,
+    type: Types.RECEIVE_POSTS,
     posts
 });
 
 const createVoteOnComment = (commentId, option, postId) => ({
-    type: VOTE_ON_COMMENT,
+    type: Types.VOTE_ON_COMMENT,
     commentId,
     option,
     postId
 });
 
 const createVoteOnPost = (postId, option, category) => ({
-    type: VOTE_ON_POST,
+    type: Types.VOTE_ON_POST,
     postId,
     option,
     category
 });
 
 const createAddPost = (postInfo) => ({
-    type: ADD_POST,
+    type: Types.ADD_POST,
     postInfo
 });
 
 const createEditPost = (postInfo) => ({
-    type: EDIT_POST,
+    type: Types.EDIT_POST,
     postInfo
 });
 
 const createAddComment = (commentInfo) => ({
-    type: ADD_COMMENT,
+    type: Types.ADD_COMMENT,
     commentInfo
 });
 
 const createEditComment = (commentInfo) => ({
-    type: EDIT_COMMENT,
+    type: Types.EDIT_COMMENT,
     commentInfo
 });
 
 const createDeletePost = (postId, category) => ({
-    type: DELETE_POST,
+    type: Types.DELETE_POST,
     postId,
     category
 });
 
 const createDeleteComment = (postId, commentId) => ({
-    type: DELETE_COMMENT,
+    type: Types.DELETE_COMMENT,
     postId,
     commentId
 });
 
 export const sortPostsBy = (sortOrder) => ({
-    type: SORT_POSTS_BY,
+    type: Types.SORT_POSTS_BY,
     sortOrder
 });
 

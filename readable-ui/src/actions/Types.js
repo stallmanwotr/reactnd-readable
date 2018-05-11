@@ -1,0 +1,18 @@
+
+/** Action Types */
+
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const ADD_POST = 'ADD_POST';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const DELETE_POST = 'DELETE_POST';
+export const EDIT_COMMENT = 'EDIT_COMMENT';
+export const EDIT_POST = 'EDIT_POST';
+export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
+export const RECEIVE_CATEGORY_POSTS = 'RECEIVE_CATEGORY_POSTS';
+export const RECEIVE_POST_AND_COMMENTS = 'RECEIVE_POST_AND_COMMENTS';
+export const RECEIVE_POSTS = 'RECEIVE_POSTS';
+export const VOTE_ON_COMMENT = 'VOTE_ON_COMMENT';
+export const VOTE_ON_POST = 'VOTE_ON_POST';
+
+export const SORT_POSTS_BY = 'SORT_POSTS_BY';
+

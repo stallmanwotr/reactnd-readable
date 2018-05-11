@@ -1,21 +1,6 @@
 import { combineReducers } from 'redux';
-import {
-    ADD_POST,
-    ADD_COMMENT,
-    DELETE_COMMENT,
-    DELETE_POST,
-    EDIT_POST,
-    EDIT_COMMENT,
-    RECEIVE_CATEGORIES,
-    RECEIVE_CATEGORY_POSTS,
-    RECEIVE_POST_AND_COMMENTS,
-    RECEIVE_POSTS,
-    SORT_POSTS_BY,
-    UP_VOTE,
-    VOTE_ON_COMMENT,
-    VOTE_ON_POST
-} from '../actions/actions';
-import * as Consts from '../utils/Consts';
+import * as Types from '../actions/Types';
+import { UP_VOTE, SORT_BY_DATE } from '../utils/Consts';
 
 /**
  * Reduces an array of objects, to a map object indexed by 'id' field.
@@ -40,20 +25,20 @@ function allReducer(state = initialAllState, action) {
     let postId, postInfo, option;
 
     switch (action.type) {
-    case RECEIVE_CATEGORIES:
+    case Types.RECEIVE_CATEGORIES:
         return {
             ...state,
             categories: action.categories
         };
 
-    case RECEIVE_POSTS:
+    case Types.RECEIVE_POSTS:
         return {
             ...state,
             // convert the array to an object/map indexed by postId:
             posts: _reduceToObjectById(action.posts)
         };
 
-    case VOTE_ON_POST:
+    case Types.VOTE_ON_POST:
         ({ postId, option } = action);
         if (!state.posts || !state.posts[postId]) {
             return state;
@@ -71,7 +56,7 @@ function allReducer(state = initialAllState, action) {
             }
         };
 
-    case DELETE_POST:
+    case Types.DELETE_POST:
         ({ postId } = action);
         if (!state.posts[postId]) {
             return state;
@@ -87,8 +72,8 @@ function allReducer(state = initialAllState, action) {
             }
         };
 
-    case ADD_POST:
-    case EDIT_POST:
+    case Types.ADD_POST:
+    case Types.EDIT_POST:
         ({ postInfo } = action);
         postId = postInfo.id;
         return {
@@ -113,7 +98,7 @@ function categoryReducer(state = {}, action) {
     let option, postInfo;
 
     switch (action.type) {
-    case RECEIVE_CATEGORY_POSTS:
+    case Types.RECEIVE_CATEGORY_POSTS:
         ({ category, posts } = action);
         return {
             ...state,
@@ -123,7 +108,7 @@ function categoryReducer(state = {}, action) {
             }
         };
 
-    case VOTE_ON_POST:
+    case Types.VOTE_ON_POST:
         ({ postId, option, category } = action);
         if (!state[category] || !state[category].posts[postId]) {
             return state;
@@ -144,8 +129,8 @@ function categoryReducer(state = {}, action) {
             }
         };
 
-    case ADD_POST:
-    case EDIT_POST:
+    case Types.ADD_POST:
+    case Types.EDIT_POST:
         ({ postInfo } = action);
         ({ category } = postInfo);
         postId = postInfo.id;
@@ -163,7 +148,7 @@ function categoryReducer(state = {}, action) {
             }
         };
 
-    case DELETE_POST:
+    case Types.DELETE_POST:
         ({ postId, category } = action);
         if (!state[category] || !state[category].posts[postId]) {
             return state;
@@ -198,7 +183,7 @@ function postReducer(state = {}, action) {
     let option, voteDelta, newScore;
 
     switch (action.type) {
-    case RECEIVE_POST_AND_COMMENTS:
+    case Types.RECEIVE_POST_AND_COMMENTS:
         const { post, comments } = action;
         // if the fetch failed post will be undefined.
         if (!post || !post.id) {
@@ -214,7 +199,7 @@ function postReducer(state = {}, action) {
             }
         };
 
-    case VOTE_ON_POST:
+    case Types.VOTE_ON_POST:
         ({ postId, option } = action);
         if (!state[postId] || !state[postId].post) {
             return state;
@@ -232,7 +217,7 @@ function postReducer(state = {}, action) {
             }
         };
 
-    case VOTE_ON_COMMENT:
+    case Types.VOTE_ON_COMMENT:
         ({ commentId, option, postId } = action);
         if (!state[postId] || !state[postId].comments[commentId]) {
             return state;
@@ -253,7 +238,7 @@ function postReducer(state = {}, action) {
             }
         };
 
-    case EDIT_POST:
+    case Types.EDIT_POST:
         ({ postInfo } = action);
         postId = postInfo.id;
         return {
@@ -264,8 +249,8 @@ function postReducer(state = {}, action) {
             }
         };
 
-    case ADD_COMMENT:
-    case EDIT_COMMENT:
+    case Types.ADD_COMMENT:
+    case Types.EDIT_COMMENT:
         ({ commentInfo } = action);
         commentId = commentInfo.id;
         postId = commentInfo.parentId;
@@ -280,7 +265,7 @@ function postReducer(state = {}, action) {
             }
         };
 
-    case DELETE_POST:
+    case Types.DELETE_POST:
         ({ postId } = action);
         // if not on the post page.
         if (!state[postId] || state[postId].post) {
@@ -297,7 +282,7 @@ function postReducer(state = {}, action) {
             }
         };
 
-    case DELETE_COMMENT:
+    case Types.DELETE_COMMENT:
         ({ postId, commentId } = action);
         return {
             ...state,
@@ -319,7 +304,7 @@ function postReducer(state = {}, action) {
 }
 
 const initialSettingsState = {
-    sortPostsBy: Consts.SORT_BY_DATE
+    sortPostsBy: SORT_BY_DATE
 };
 
 /**
@@ -328,7 +313,7 @@ const initialSettingsState = {
  */
 function settingsReducer(state = initialSettingsState, action) {
     switch (action.type) {
-    case SORT_POSTS_BY:
+    case Types.SORT_POSTS_BY:
         const { sortOrder } = action;
         return {
             ...state,

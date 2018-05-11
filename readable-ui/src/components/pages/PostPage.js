@@ -7,9 +7,7 @@ import {
     fetchPostAndComments,
     deleteComment,
     deletePost,
-    voteOnPost,
-    UP_VOTE,
-    DOWN_VOTE
+    voteOnPost
 } from '../../actions/actions';
 import CommentItem from '../CommentItem';
 import UpDownButtons from '../buttons/UpDownButtons';
@@ -18,6 +16,7 @@ import DeletePostButton from '../buttons/DeletePostButton';
 import EditPostButton from '../buttons/EditPostButton';
 import AddCommentDialog from '../dialogs/AddCommentDialog';
 import AddPostDialog from '../dialogs/AddPostDialog';
+import { UP_VOTE, DOWN_VOTE } from '../../utils/Consts';
 import { formatTimestamp } from '../../utils/Utils';
 import './PostPage.css';
 
