@@ -52,3 +52,17 @@ export const formatTimestamp = (timestamp) => {
 
     return 'just now';
 };
+
+/**
+ * Reduces an array of objects, to a map object indexed by 'id' field.
+ */
+export function reduceToObjectById(values) {
+    if (!Array.isArray(values)) {
+        return {};
+    }
+    return values.reduce((obj, item) => {
+        obj[item.id] = item;
+        return obj;
+    }, {});
+};
+
