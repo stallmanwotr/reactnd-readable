@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import uuidv1 from 'uuid/v1';
-import { addComment, editComment } from '../../actions/actions';
+import { addComment, editComment } from '../../actions/CommentActions';
 import './ModalDialog.css';
 
 /**

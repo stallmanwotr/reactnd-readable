@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchCategories } from '../actions/actions';
+import { fetchCategories } from '../actions/CategoryActions';
 import './CategoryList.css';
 
 // Redux: Map the app state to component props.

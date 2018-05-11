@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { deletePost } from '../actions/actions';
+import { deletePost } from '../actions/PostActions';
 import PostSummaryItem from './PostSummaryItem';
 import AddPostDialog from './dialogs/AddPostDialog';
 import { SORT_BY_DATE, SORT_BY_POINTS } from '../utils/Consts';

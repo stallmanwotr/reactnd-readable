@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchCategoryPosts } from '../../actions/actions';
+import { fetchCategoryPosts } from '../../actions/CategoryActions';
 import NotFoundPage from './NotFoundPage';
 import AddPostButton from '../buttons/AddPostButton';
 import PageButtonBar from '../buttons/PageButtonBar';

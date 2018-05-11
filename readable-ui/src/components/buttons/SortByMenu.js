@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { sortPostsBy } from '../../actions/actions';
+import { sortPostsBy } from '../../actions/PostActions';
 import * as Consts from '../../utils/Consts';
 import './PageButton.css';
 

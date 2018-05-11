@@ -3,12 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import NotFoundPage from './NotFoundPage';
-import {
-    fetchPostAndComments,
-    deleteComment,
-    deletePost,
-    voteOnPost
-} from '../../actions/actions';
+import { deleteComment } from '../../actions/CommentActions';
+import { fetchPostAndComments, deletePost, voteOnPost } from '../../actions/PostActions';
 import CommentItem from '../CommentItem';
 import UpDownButtons from '../buttons/UpDownButtons';
 import AddCommentButton from '../buttons/AddCommentButton';

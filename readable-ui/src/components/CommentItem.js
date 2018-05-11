@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import UpDownButtons from './buttons/UpDownButtons';
-import { voteOnComment  } from '../actions/actions';
+import { voteOnComment  } from '../actions/CommentActions';
 import { formatTimestamp } from '../utils/Utils';
 import { UP_VOTE, DOWN_VOTE } from '../utils/Consts';
 import './CommentItem.css';
